@@ -3,12 +3,12 @@ import s from './MyPosts.module.css'
 import {Post} from './post/Post';
 
 export const MyPosts = () => {
-    const postData = [
+    const posts = [
         {id: 1, likeCounts: 15, message: 'Hi, how are you?'},
         {id: 2, likeCounts: 20, message: 'It\'s my first post'}
     ]
 
-    const postsElements = postData.map(el=><Post key={el.id} message={el.message} likeCounts={el.likeCounts}/>)
+    const postsElements = posts.map(p=><Post key={p.id} message={p.message} likeCounts={p.likeCounts}/>)
 
     return (
         <div className={s.postsBlock}>
