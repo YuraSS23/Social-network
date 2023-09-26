@@ -8,48 +8,8 @@ import {Route, Routes} from 'react-router-dom';
 import {News} from './components/news/News';
 import {Music} from './components/music/Music';
 import {Settings} from './components/settings/Settings';
+import {StateType} from "./redux/state";
 
-
-export type PostType = {
-    id: number
-    likeCounts: number
-    message: string
-}
-
-export type DialogsType = {
-    id: number
-    name: string
-}
-
-export type MessagesType = {
-    id: number
-    message: string
-}
-
-export type MessagesPageType = {
-    dialogs: DialogsType[]
-    messages: MessagesType[]
-}
-
-export type ProfilePageType = {
-    posts: PostType[]
-}
-
-export type FriendType = {
-    id: number
-    name:string
-    avatar: string
-}
-
-export type SidebarType = {
-    friends: FriendType[]
-}
-
-type StateType = {
-    profilePage: ProfilePageType
-    dialogsPage: MessagesPageType
-    sidebar: SidebarType
-}
 
 type AppPropsType = {
     state: StateType
