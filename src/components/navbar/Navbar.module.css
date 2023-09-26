@@ -12,3 +12,13 @@
 .item a:global.active {
     color: rgba(48, 8, 246, 0.79);
 }
+
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+.friend {
+    width: 160px;
+    height: 70px;
+}

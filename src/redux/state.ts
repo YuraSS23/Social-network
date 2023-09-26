@@ -22,5 +22,12 @@ export const state = {
             {id: 5, message: 'Hi'},
             {id: 6, message: 'Hi'},
         ]
+    },
+    sidebar : {
+        friends: [
+            {id: 1, name: 'Dimych', avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'},
+            {id: 2, name: 'Valera', avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'},
+            {id: 3, name: 'Svetlana', avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'},
+        ]
     }
 }

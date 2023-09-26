@@ -35,9 +35,20 @@ export type ProfilePageType = {
     posts: PostType[]
 }
 
+export type FriendType = {
+    id: number
+    name:string
+    avatar: string
+}
+
+export type SidebarType = {
+    friends: FriendType[]
+}
+
 type StateType = {
     profilePage: ProfilePageType
     dialogsPage: MessagesPageType
+    sidebar: SidebarType
 }
 
 type AppPropsType = {
@@ -49,7 +60,7 @@ function App(props: AppPropsType) {
         <BrowserRouter>
             <div className={'app-wrapper'}>
                 <Header/>
-                <Navbar/>
+                <Navbar friends={props.state.sidebar.friends}/>
                 <div className={'app-wrapper-content'}>
                     <Routes>
                         <Route path={'/'} element={<Profile state={props.state.profilePage.posts}/>}/>
