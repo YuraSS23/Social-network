@@ -10,24 +10,38 @@ import {Music} from './components/music/Music';
 import {Settings} from './components/settings/Settings';
 
 
-export type PostsType = {
+export type PostType = {
     id: number
     likeCounts: number
     message: string
 }
+
 export type DialogsType = {
     id: number
     name: string
 }
+
 export type MessagesType = {
     id: number
     message: string
 }
 
-type AppPropsType = {
-    posts: PostsType[]
+export type MessagesPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
+}
+
+export type ProfilePageType = {
+    posts: PostType[]
+}
+
+type StateType = {
+    profilePage: ProfilePageType
+    dialogsPage: MessagesPageType
+}
+
+type AppPropsType = {
+    state: StateType
 }
 
 function App(props: AppPropsType) {
@@ -38,9 +52,9 @@ function App(props: AppPropsType) {
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
                     <Routes>
-                        <Route path={'/'} element={<Profile posts={props.posts}/>}/>
-                        <Route path={'/profile'} element={<Profile posts={props.posts}/>}/>
-                        <Route path={'/dialogs/*'} element={<Dialogs dialogs={props.dialogs} messages={props.messages}/>}/>
+                        <Route path={'/'} element={<Profile state={props.state.profilePage.posts}/>}/>
+                        <Route path={'/profile'} element={<Profile state={props.state.profilePage.posts}/>}/>
+                        <Route path={'/dialogs/*'} element={<Dialogs state={props.state.dialogsPage} />}/>
                         <Route path={'/news'} element={<News />}/>
                         <Route path={'/music'} element={<Music />}/>
                         <Route path={'/settings'} element={<Settings />}/>
