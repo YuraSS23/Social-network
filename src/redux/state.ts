@@ -39,7 +39,7 @@ export type StateType = {
     sidebar: SidebarType
 }
 
-export const state = {
+export let state = {
     profilePage: {
         posts: [
             {id: 1, likeCounts: 15, message: 'Hi, how are you?'},
@@ -71,4 +71,14 @@ export const state = {
             {id: 3, name: 'Svetlana', avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'},
         ]
     }
+}
+
+export const addPostInSate = (postMessage: string)=>{
+    let newPost: PostType =  {
+        id: new Date().getTime(),
+        likeCounts: 0,
+        message: postMessage
+    }
+    state.profilePage.posts.push(newPost)
+    //state = {...state, profilePage: {...state.profilePage, posts: [...state.profilePage.posts, newPost]}}
 }

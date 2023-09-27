@@ -13,6 +13,7 @@ import {StateType} from "./redux/state";
 
 type AppPropsType = {
     state: StateType
+    addPostInSate: (postMessage: string)=>void
 }
 
 function App(props: AppPropsType) {
@@ -22,8 +23,8 @@ function App(props: AppPropsType) {
                 <Navbar friends={props.state.sidebar.friends}/>
                 <div className={'app-wrapper-content'}>
                     <Routes>
-                        <Route path={'/'} element={<Profile state={props.state.profilePage.posts}/>}/>
-                        <Route path={'/profile'} element={<Profile state={props.state.profilePage.posts}/>}/>
+                        <Route path={'/'} element={<Profile state={props.state.profilePage.posts} addPostInSate={props.addPostInSate}/>}/>
+                        <Route path={'/profile'} element={<Profile state={props.state.profilePage.posts} addPostInSate={props.addPostInSate}/>}/>
                         <Route path={'/dialogs/*'} element={<Dialogs state={props.state.dialogsPage} />}/>
                         <Route path={'/news'} element={<News />}/>
                         <Route path={'/music'} element={<Music />}/>

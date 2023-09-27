@@ -7,6 +7,7 @@ import {MessagesPageType} from "../../redux/state";
 
 type DialogsPropsType = {
     state: MessagesPageType
+
 }
 
 export const Dialogs = (props: DialogsPropsType) => {

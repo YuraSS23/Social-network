@@ -6,13 +6,14 @@ import {PostType} from "../../redux/state";
 
 type ProfilePropsType = {
     state: PostType[]
+    addPostInSate: (postMessage: string)=>void
 }
 
 export const Profile = (props: ProfilePropsType) => {
     return (
         <div className={s.content}>
             <ProfileInfo/>
-            <MyPosts posts={props.state}/>
+            <MyPosts posts={props.state} addPostInSate={props.addPostInSate}/>
         </div>
     );
 };
