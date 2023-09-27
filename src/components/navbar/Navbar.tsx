@@ -19,7 +19,7 @@ export const Navbar = (props: NavbarPropsType) => {
             <div>Friends</div>
             {props.friends.map(el=> {
                 return (
-                    <div className={s.friend}>
+                    <div key={el.id} className={s.friend}>
                         <img className={s.img} src={el.avatar}/>
                         <span key={el.id}>
                             {el.name}
