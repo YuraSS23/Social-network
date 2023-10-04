@@ -27,6 +27,7 @@ let newPostElement= React.createRef<HTMLTextAreaElement>()
 
         if (newPostElement.current) {
             props.addPostInSate (newPostElement.current?.value)
+            newPostElement.current.value = ""
         }
     }
 

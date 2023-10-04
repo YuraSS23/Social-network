@@ -1,3 +1,5 @@
+import {renderEntireTree} from "../render";
+
 export type PostType = {
     id: number
     likeCounts: number
@@ -73,12 +75,13 @@ export let state = {
     }
 }
 
-export const addPostInSate = (postMessage: string)=>{
+export const addPostInState = (postMessage: string)=>{
     let newPost: PostType =  {
         id: new Date().getTime(),
         likeCounts: 0,
         message: postMessage
     }
     state.profilePage.posts.push(newPost)
+    renderEntireTree(state)
     //state = {...state, profilePage: {...state.profilePage, posts: [...state.profilePage.posts, newPost]}}
 }
