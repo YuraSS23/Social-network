@@ -23,6 +23,7 @@ export type MessagesPageType = {
 
 export type ProfilePageType = {
     posts: PostType[]
+    newPostText: string
 }
 
 export type FriendType = {
@@ -46,7 +47,8 @@ export let state = {
         posts: [
             {id: 1, likeCounts: 15, message: 'Hi, how are you?'},
             {id: 2, likeCounts: 20, message: 'It\'s my first post'}
-        ]
+        ],
+        newPostText: "it-kamasutra.com"
     },
     dialogsPage: {
         dialogs: [
@@ -84,4 +86,9 @@ export const addPostInState = (postMessage: string)=>{
     state.profilePage.posts.push(newPost)
     renderEntireTree(state)
     //state = {...state, profilePage: {...state.profilePage, posts: [...state.profilePage.posts, newPost]}}
+}
+
+export const updateNewPostText = (newText: string)=>{
+    state.profilePage.newPostText = newText
+    renderEntireTree(state)
 }
