@@ -6,7 +6,7 @@ import {PostType, ProfilePageType} from "../../redux/state";
 
 type ProfilePropsType = {
     state: ProfilePageType
-    addPostInSate: (postMessage: string)=>void
+    addPostInSate: ()=>void
     updateNewPostText: (newText: string)=>void
 }
 

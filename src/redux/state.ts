@@ -48,7 +48,7 @@ export let state = {
             {id: 1, likeCounts: 15, message: 'Hi, how are you?'},
             {id: 2, likeCounts: 20, message: 'It\'s my first post'}
         ],
-        newPostText: "it-kamasutra.com"
+        newPostText: ""
     },
     dialogsPage: {
         dialogs: [
@@ -77,13 +77,14 @@ export let state = {
     }
 }
 
-export const addPostInState = (postMessage: string)=>{
+export const addPostInState = ()=>{
     let newPost: PostType =  {
         id: new Date().getTime(),
         likeCounts: 0,
-        message: postMessage
+        message: state.profilePage.newPostText
     }
     state.profilePage.posts.push(newPost)
+    updateNewPostText('')
     renderEntireTree(state)
     //state = {...state, profilePage: {...state.profilePage, posts: [...state.profilePage.posts, newPost]}}
 }

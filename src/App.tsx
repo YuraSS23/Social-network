@@ -13,7 +13,7 @@ import {StateType, updateNewPostText} from "./redux/state";
 
 type AppPropsType = {
     state: StateType
-    addPostInSate: (postMessage: string)=>void
+    addPostInSate: ()=>void
     updateNewPostText: (newText: string)=>void
 }
 

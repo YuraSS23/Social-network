@@ -6,7 +6,7 @@ import {PostType} from "../../../redux/state";
 
 type MyPostsPropsType = {
     posts: PostType[]
-    addPostInSate: (postMessage: string)=>void
+    addPostInSate: ()=>void
     newPostText: string
     updateNewPostText: (newText: string)=>void
 }
@@ -24,18 +24,12 @@ export const MyPosts = (props: MyPostsPropsType) => {
 let newPostElement= React.createRef<HTMLTextAreaElement>()
 
     const addPost = ()=> {
-       // alert(value)
-       //alert(newPostElement.current?.value)
-
-        if (newPostElement.current) {
-            props.addPostInSate (newPostElement.current?.value)
-            props.updateNewPostText ("")
-        }
+        props.addPostInSate()
     }
 
     const onPostChange = () => {
         if (newPostElement.current) {
-            props.updateNewPostText (newPostElement.current?.value)
+            props.updateNewPostText(newPostElement.current?.value)
         }
     }
 
@@ -43,7 +37,7 @@ let newPostElement= React.createRef<HTMLTextAreaElement>()
         <div className={s.postsBlock}>
             <h3>My Posts</h3>
             <div>
-                <div><textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText}/></div>
+                <div><textarea placeholder={"Add new post..."} onChange={onPostChange} ref={newPostElement} value={props.newPostText}/></div>
                 <div><button onClick={addPost}>Add post</button></div>
             </div>
             <div>
