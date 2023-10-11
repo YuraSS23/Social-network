@@ -43,7 +43,7 @@ export type StoreType = {
     _state: StateType
     addPostInState: ()=>void
     updateNewPostText: (newText: string)=>void
-    renderEntireTree: (state: StateType)=>void
+    _callSubscriber: (state: StateType)=>void
     subscribe: (observer: (state: StateType) => void)=>void
 }
 
@@ -89,16 +89,19 @@ export let store = {
             message: this._state.profilePage.newPostText
         }
         this._state.profilePage.posts.push(newPost)
-        this.updateNewPostText('')
-        this.renderEntireTree(this._state)
+        this._state.profilePage.newPostText = ""
+        this._callSubscriber(this._state)
         //state = {...state, profilePage: {...state.profilePage, posts: [...state.profilePage.posts, newPost]}}
     },
     updateNewPostText(newText: string) {
         this._state.profilePage.newPostText = newText
-        this.renderEntireTree(this._state)
+        this._callSubscriber(this._state)
     },
-    renderEntireTree(state: StateType) {},
+    _callSubscriber(state: StateType) {},
     subscribe(observer: (state: StateType) => void) {
-        this.renderEntireTree = observer
+        this._callSubscriber = observer
     },
+    getState() {
+       return this._state
+    }
 }
