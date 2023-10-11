@@ -1,5 +1,3 @@
-import {renderEntireTree} from "../render";
-
 export type PostType = {
     id: number
     likeCounts: number
@@ -92,4 +90,10 @@ export const addPostInState = ()=>{
 export const updateNewPostText = (newText: string)=>{
     state.profilePage.newPostText = newText
     renderEntireTree(state)
+}
+
+let renderEntireTree = (state: StateType) => {}
+
+export const subscribe = (observer: (state: StateType) => void) => {
+    renderEntireTree = observer
 }
