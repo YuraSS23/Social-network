@@ -7,11 +7,11 @@ import React from "react";
 const renderEntireTree = (state: StateType) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App state={store.state} store={store}/>
+            <App state={store._state} store={store}/>
         </BrowserRouter>
         ,document.getElementById('root'));
 }
 
 store.subscribe(renderEntireTree)
 
-renderEntireTree(store.state)
+renderEntireTree(store._state)

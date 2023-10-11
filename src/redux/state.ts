@@ -40,7 +40,7 @@ export type StateType = {
     sidebar: SidebarType
 }
 export type StoreType = {
-    state: StateType
+    _state: StateType
     addPostInState: ()=>void
     updateNewPostText: (newText: string)=>void
     renderEntireTree: (state: StateType)=>void
@@ -48,7 +48,7 @@ export type StoreType = {
 }
 
 export let store = {
-    state: {
+    _state: {
         profilePage: {
             posts: [
                 {id: 1, likeCounts: 15, message: 'Hi, how are you?'},
@@ -86,16 +86,16 @@ export let store = {
         let newPost: PostType =  {
             id: new Date().getTime(),
             likeCounts: 0,
-            message: this.state.profilePage.newPostText
+            message: this._state.profilePage.newPostText
         }
-        this.state.profilePage.posts.push(newPost)
+        this._state.profilePage.posts.push(newPost)
         this.updateNewPostText('')
-        this.renderEntireTree(this.state)
+        this.renderEntireTree(this._state)
         //state = {...state, profilePage: {...state.profilePage, posts: [...state.profilePage.posts, newPost]}}
     },
     updateNewPostText(newText: string) {
-        this.state.profilePage.newPostText = newText
-        this.renderEntireTree(this.state)
+        this._state.profilePage.newPostText = newText
+        this.renderEntireTree(this._state)
     },
     renderEntireTree(state: StateType) {},
     subscribe(observer: (state: StateType) => void) {
