@@ -1,14 +1,13 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from './post/Post';
-import {PostType} from "../../../redux/state";
+import {PostType, StoreType} from "../../../redux/state";
 
 
 type MyPostsPropsType = {
     posts: PostType[]
-    addPostInSate: ()=>void
     newPostText: string
-    updateNewPostText: (newText: string)=>void
+    store: StoreType
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -24,12 +23,12 @@ export const MyPosts = (props: MyPostsPropsType) => {
 let newPostElement= React.createRef<HTMLTextAreaElement>()
 
     const addPost = ()=> {
-        props.addPostInSate()
+        props.store.addPostInState()
     }
 
     const onPostChange = () => {
         if (newPostElement.current) {
-            props.updateNewPostText(newPostElement.current?.value)
+            props.store.updateNewPostText(newPostElement.current?.value)
         }
     }
 

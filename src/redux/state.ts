@@ -39,61 +39,66 @@ export type StateType = {
     dialogsPage: MessagesPageType
     sidebar: SidebarType
 }
+export type StoreType = {
+    state: StateType
+    addPostInState: ()=>void
+    updateNewPostText: (newText: string)=>void
+    renderEntireTree: (state: StateType)=>void
+    subscribe: (observer: (state: StateType) => void)=>void
+}
 
-export let state = {
-    profilePage: {
-        posts: [
-            {id: 1, likeCounts: 15, message: 'Hi, how are you?'},
-            {id: 2, likeCounts: 20, message: 'It\'s my first post'}
-        ],
-        newPostText: ""
+export let store = {
+    state: {
+        profilePage: {
+            posts: [
+                {id: 1, likeCounts: 15, message: 'Hi, how are you?'},
+                {id: 2, likeCounts: 20, message: 'It\'s my first post'}
+            ],
+            newPostText: ""
+        },
+        dialogsPage: {
+            dialogs: [
+                {id: 1, name: 'Dimych'},
+                {id: 2, name: 'Valera'},
+                {id: 3, name: 'Svetlana'},
+                {id: 4, name: 'Oleg'},
+                {id: 5, name: 'Igor'},
+                {id: 6, name: 'Tolik'}
+            ],
+            messages: [
+                {id: 1, message: 'Hi'},
+                {id: 2, message: 'Yo'},
+                {id: 3, message: 'This is IT-kamasutra'},
+                {id: 4, message: 'Bye'},
+                {id: 5, message: 'Hi'},
+                {id: 6, message: 'Hi'},
+            ]
+        },
+        sidebar : {
+            friends: [
+                {id: 1, name: 'Dimych', avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'},
+                {id: 2, name: 'Valera', avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'},
+                {id: 3, name: 'Svetlana', avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'},
+            ]
+        }
     },
-    dialogsPage: {
-        dialogs: [
-            {id: 1, name: 'Dimych'},
-            {id: 2, name: 'Valera'},
-            {id: 3, name: 'Svetlana'},
-            {id: 4, name: 'Oleg'},
-            {id: 5, name: 'Igor'},
-            {id: 6, name: 'Tolik'}
-        ],
-        messages: [
-            {id: 1, message: 'Hi'},
-            {id: 2, message: 'Yo'},
-            {id: 3, message: 'This is IT-kamasutra'},
-            {id: 4, message: 'Bye'},
-            {id: 5, message: 'Hi'},
-            {id: 6, message: 'Hi'},
-        ]
+    addPostInState() {
+        let newPost: PostType =  {
+            id: new Date().getTime(),
+            likeCounts: 0,
+            message: this.state.profilePage.newPostText
+        }
+        this.state.profilePage.posts.push(newPost)
+        this.updateNewPostText('')
+        this.renderEntireTree(this.state)
+        //state = {...state, profilePage: {...state.profilePage, posts: [...state.profilePage.posts, newPost]}}
     },
-    sidebar : {
-        friends: [
-            {id: 1, name: 'Dimych', avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'},
-            {id: 2, name: 'Valera', avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'},
-            {id: 3, name: 'Svetlana', avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'},
-        ]
-    }
-}
-
-export const addPostInState = ()=>{
-    let newPost: PostType =  {
-        id: new Date().getTime(),
-        likeCounts: 0,
-        message: state.profilePage.newPostText
-    }
-    state.profilePage.posts.push(newPost)
-    updateNewPostText('')
-    renderEntireTree(state)
-    //state = {...state, profilePage: {...state.profilePage, posts: [...state.profilePage.posts, newPost]}}
-}
-
-export const updateNewPostText = (newText: string)=>{
-    state.profilePage.newPostText = newText
-    renderEntireTree(state)
-}
-
-let renderEntireTree = (state: StateType) => {}
-
-export const subscribe = (observer: (state: StateType) => void) => {
-    renderEntireTree = observer
+    updateNewPostText(newText: string) {
+        this.state.profilePage.newPostText = newText
+        this.renderEntireTree(this.state)
+    },
+    renderEntireTree(state: StateType) {},
+    subscribe(observer: (state: StateType) => void) {
+        this.renderEntireTree = observer
+    },
 }
