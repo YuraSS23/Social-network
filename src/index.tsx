@@ -8,8 +8,7 @@ const renderEntireTree = (state: StateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <App state={state}
-                 addPostInState={store.addPostInState.bind(store)}
-                 updateNewPostText={store.updateNewPostText.bind(store)}
+                 dispatch={store.dispatch.bind(store)}
             />
         </BrowserRouter>
         , document.getElementById('root'));

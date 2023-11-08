@@ -1,3 +1,5 @@
+import {ActionTypes} from "redux-form";
+
 export type PostType = {
     id: number
     likeCounts: number
@@ -45,6 +47,12 @@ export type StoreType = {
     updateNewPostText: (newText: string)=>void
     _callSubscriber: (state: StateType)=>void
     subscribe: (observer: (state: StateType) => void)=>void
+    dispatch: (action: ActionType)=>void
+}
+
+export type ActionType = {
+    type: string
+    newText?: string
 }
 
 export let store = {
@@ -82,6 +90,15 @@ export let store = {
             ]
         }
     },
+    _callSubscriber(state: StateType) {},
+
+    subscribe(observer: (state: StateType) => void) {
+        this._callSubscriber = observer
+    },
+    getState() {
+        return this._state
+    },
+
     addPostInState() {
         let newPost: PostType =  {
             id: new Date().getTime(),
@@ -91,17 +108,34 @@ export let store = {
         this._state.profilePage.posts.push(newPost)
         this._state.profilePage.newPostText = ""
         this._callSubscriber(this._state)
-        //state = {...state, profilePage: {...state.profilePage, posts: [...state.profilePage.posts, newPost]}}
     },
     updateNewPostText(newText: string) {
         this._state.profilePage.newPostText = newText
         this._callSubscriber(this._state)
     },
-    _callSubscriber(state: StateType) {},
-    subscribe(observer: (state: StateType) => void) {
-        this._callSubscriber = observer
-    },
-    getState() {
-       return this._state
+
+    dispatch(action: ActionType) {
+        switch (action.type) {
+            case "ADD-POST" : {
+                let newPost: PostType =  {
+                    id: new Date().getTime(),
+                    likeCounts: 0,
+                    message: this._state.profilePage.newPostText
+                }
+                this._state.profilePage.posts.push(newPost)
+                this._state.profilePage.newPostText = ""
+                this._callSubscriber(this._state)
+            }
+            break
+            case "UPDATE-NEW-POST-TEXT": {
+              //  action.newText ? this._state.profilePage.newPostText = action.newText : {}
+                this._callSubscriber(this._state)
+            }
+            break
+            default: {
+
+            }
+            break
+        }
     }
 }
