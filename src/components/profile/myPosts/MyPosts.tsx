@@ -23,12 +23,14 @@ export const MyPosts = (props: MyPostsPropsType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const addPost = () => {
-        props.dispatch({type: "ADD-POST"})
+        const action: ActionType = {type: "ADD-POST"}
+        props.dispatch(action)
     }
 
     const onPostChange = () => {
         if (newPostElement.current) {
-            props.dispatch({type: "ADD-POST", newText: newPostElement.current?.value})
+            const action: ActionType = {type: "UPDATE-NEW-POST-TEXT", newText: newPostElement.current?.value}
+            props.dispatch(action)
         }
     }
 
