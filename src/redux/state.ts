@@ -1,4 +1,6 @@
 import {ActionTypes} from "redux-form";
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
 export type PostType = {
     id: number
@@ -43,8 +45,6 @@ export type StateType = {
 }
 export type StoreType = {
     _state: StateType
-    addPostInState: ()=>void
-    updateNewPostText: (newText: string)=>void
     _callSubscriber: (state: StateType)=>void
     subscribe: (observer: (state: StateType) => void)=>void
     dispatch: (action: ActionType)=>void
@@ -105,24 +105,9 @@ export let store = {
         return this._state
     },
 
-    addPostInState() {
-        let newPost: PostType =  {
-            id: new Date().getTime(),
-            likeCounts: 0,
-            message: this._state.profilePage.newPostText
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ""
-        this._callSubscriber(this._state)
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._callSubscriber(this._state)
-    },
-
     dispatch(action: ActionType) {
         switch (action.type) {
-            case "ADD-POST" :
+            case ADD_POST :
                 let newPost: PostType =  {
                     id: new Date().getTime(),
                     likeCounts: 0,
@@ -132,7 +117,7 @@ export let store = {
                 this._state.profilePage.newPostText = ""
                 this._callSubscriber(this._state)
             break
-            case "UPDATE-NEW-POST-TEXT":
+            case UPDATE_NEW_POST_TEXT:
                 this._state.profilePage.newPostText = action.newText
                 this._callSubscriber(this._state)
             break
@@ -141,3 +126,6 @@ export let store = {
         }
     }
 }
+
+export const addPostActionCreator = ()=> ({type: ADD_POST}) as const
+export const changeNewPostTextActionCreator =(text: string)=> ({type: UPDATE_NEW_POST_TEXT, newText: text}) as const
