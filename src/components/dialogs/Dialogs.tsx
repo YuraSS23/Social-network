@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from './dialogItem/DialogItem';
 import {Message} from './message/Message';
-import {MessagesPageType} from "../../redux/state";
+import {
+    ActionType,
+    addMessageActionCreator,
+    changeNewMessageTextActionCreator,
+    changeNewPostTextActionCreator,
+    MessagesPageType
+} from "../../redux/state";
 import {NavLink, Route, Routes} from "react-router-dom";
 
 
 type DialogsPropsType = {
     state: MessagesPageType
-
+    dispatch: (action: ActionType)=>void
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -16,9 +22,12 @@ export const Dialogs = (props: DialogsPropsType) => {
     const dialogsElements = props.state.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
     const messagesElements = props.state.messages.map(m => <Message key={m.id} message={m.message}/>)
 
-    const TextAreaRef = React.createRef<HTMLTextAreaElement>()
     const AddMessage = () => {
-        alert(TextAreaRef.current?.value)
+        props.dispatch(addMessageActionCreator())
+    }
+    const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const action: ActionType = changeNewMessageTextActionCreator(e.currentTarget.value)
+        props.dispatch(action)
     }
 
     return (
@@ -28,7 +37,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                 <Route path={'dialogs/*'} element={<div className={s.messages}>
                     <NavLink to={'/dialogs'}>Back</NavLink>
                     {messagesElements}
-                    <textarea ref={TextAreaRef} className={s.messageTextarea}>Сообщение</textarea>
+                    <textarea value={props.state.newMessageText} onChange={onMessageChange} className={s.messageTextarea} placeholder={"Напииште сообщение..."}></textarea>
                     <button onClick={AddMessage} className={s.messageButton}>Отправить сообщение</button>
                 </div>}/>
             </Routes>

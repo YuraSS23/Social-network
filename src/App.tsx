@@ -13,7 +13,7 @@ import {ActionType, StateType, store, StoreType} from "./redux/state";
 
 type AppPropsType = {
     state: StateType
-    dispatch: (action: ActionType)=>void
+    dispatch: (action: ActionType) => void
 }
 
 function App(props: AppPropsType) {
@@ -24,11 +24,14 @@ function App(props: AppPropsType) {
             <div className={'app-wrapper-content'}>
                 <Routes>
                     <Route path={'/'} element={<Profile state={props.state.profilePage}
-                                                        dispatch={props.dispatch}/>}/>
+                                                        dispatch={props.dispatch}/>
+                    }/>
                     <Route path={'/profile'} element={<Profile state={props.state.profilePage}
                                                                dispatch={props.dispatch}
-                                                               />}/>
-                    <Route path={'/dialogs/*'} element={<Dialogs state={props.state.dialogsPage}/>}/>
+                    />}/>
+                    <Route path={'/dialogs/*'} element={<Dialogs state={props.state.dialogsPage}
+                                                                 dispatch={props.dispatch}
+                    />}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
