@@ -8,6 +8,7 @@
 }
 
 .messages {
+    width: 800px;
     padding: 10px;
 }
 .messageTextarea {
