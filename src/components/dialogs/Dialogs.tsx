@@ -4,12 +4,10 @@ import {DialogItem} from './dialogItem/DialogItem';
 import {Message} from './message/Message';
 import {
     ActionType,
-    addMessageActionCreator,
-    changeNewMessageTextActionCreator,
-    changeNewPostTextActionCreator,
     MessagesPageType
 } from "../../redux/state";
 import {NavLink, Route, Routes} from "react-router-dom";
+import {addMessageActionCreator, changeNewMessageTextActionCreator} from "../../redux/dialogsReducer";
 
 
 type DialogsPropsType = {

@@ -1,11 +1,6 @@
-import {ActionTypes} from "redux-form";
 import {v1} from "uuid";
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
-
-
+import {dialogsReduser} from "./dialogsReducer";
+import {postsReduser} from "./postReducer";
 
 export type PostType = {
     id: string
@@ -122,40 +117,8 @@ export let store = {
     },
 
     dispatch(action: ActionType) {
-        switch (action.type) {
-            case ADD_POST :
-                let newPost: PostType =  {
-                    id: v1(),
-                    likeCounts: 0,
-                    message: this._state.profilePage.newPostText
-                }
-                this._state.profilePage.posts.push(newPost)
-                this._state.profilePage.newPostText = ""
-                this._callSubscriber(this._state)
-            break
-            case UPDATE_NEW_POST_TEXT:
-                this._state.profilePage.newPostText = action.newText
-                this._callSubscriber(this._state)
-            break
-            case ADD_MESSAGE :
-                let newMessage: MessagesType =  {
-                    id: v1(),
-                    message: this._state.dialogsPage.newMessageText
-                }
-                this._state.dialogsPage.messages.push(newMessage)
-                this._state.dialogsPage.newMessageText = ""
-                this._callSubscriber(this._state)
-                break
-            case UPDATE_NEW_MESSAGE_TEXT:
-                this._state.dialogsPage.newMessageText = action.newText
-                this._callSubscriber(this._state)
-                break
-
-        }
+        dialogsReduser(this._state.dialogsPage, action)
+        postsReduser(this._state.profilePage, action)
+        this._callSubscriber(store._state)
     }
 }
-
-export const addPostActionCreator = ()=> ({type: ADD_POST}) as const
-export const changeNewPostTextActionCreator =(text: string)=> ({type: UPDATE_NEW_POST_TEXT, newText: text}) as const
-export const addMessageActionCreator = ()=> ({type: ADD_MESSAGE}) as const
-export const changeNewMessageTextActionCreator =(text: string)=> ({type: UPDATE_NEW_MESSAGE_TEXT, newText: text}) as const
