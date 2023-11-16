@@ -5,7 +5,7 @@ import {Message} from './message/Message';
 import {
     ActionType,
     MessagesPageType
-} from "../../redux/state";
+} from "../../redux/store";
 import {NavLink, Route, Routes} from "react-router-dom";
 import {addMessageActionCreator, changeNewMessageTextActionCreator} from "../../redux/dialogsReducer";
 

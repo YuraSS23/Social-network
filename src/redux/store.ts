@@ -1,6 +1,7 @@
 import {v1} from "uuid";
 import {dialogsReduser} from "./dialogsReducer";
 import {postsReduser} from "./postReducer";
+import {sidebarReduser} from "./sidebarReduser";
 
 export type PostType = {
     id: string
@@ -119,6 +120,7 @@ export let store = {
     dispatch(action: ActionType) {
         dialogsReduser(this._state.dialogsPage, action)
         postsReduser(this._state.profilePage, action)
+        sidebarReduser(this._state.sidebar, action)
         this._callSubscriber(store._state)
     }
 }

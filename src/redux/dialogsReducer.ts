@@ -1,10 +1,30 @@
 import {v1} from "uuid";
-import {ActionType, MessagesPageType, MessagesType, PostType, ProfilePageType} from "./state";
+import {ActionType, MessagesPageType, MessagesType} from "./store";
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
-export const dialogsReduser = (state: MessagesPageType, action: ActionType): MessagesPageType => {
+const initialState = {
+    dialogs: [
+        {id: v1(), name: 'Dimych'},
+        {id: v1(), name: 'Valera'},
+        {id: v1(), name: 'Svetlana'},
+        {id: v1(), name: 'Oleg'},
+        {id: v1(), name: 'Igor'},
+        {id: v1(), name: 'Tolik'}
+    ],
+        messages: [
+        {id: v1(), message: 'Hi'},
+        {id: v1(), message: 'Yo'},
+        {id: v1(), message: 'This is IT-kamasutra'},
+        {id: v1(), message: 'Bye'},
+        {id: v1(), message: 'Hi'},
+        {id: v1(), message: 'Hi'},
+    ],
+        newMessageText: "",
+}
+
+export const dialogsReduser = (state: MessagesPageType = initialState, action: ActionType): MessagesPageType => {
     switch (action.type) {
         case ADD_MESSAGE : {
             let newMessage: MessagesType = {
