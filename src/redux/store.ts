@@ -50,6 +50,7 @@ export type StoreType = {
     _callSubscriber: (state: StateType)=>void
     subscribe: (observer: (state: StateType) => void)=>void
     dispatch: (action: ActionType)=>void
+    getState: ()=>StateType
 }
 
 export type ActionType = AddPostActionType | UpdateNewPostActionType | AddMessageActionType | UpdateNewMessageActionType

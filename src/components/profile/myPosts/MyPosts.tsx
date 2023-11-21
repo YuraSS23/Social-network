@@ -1,17 +1,16 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from './post/Post';
 import {
-    ActionType,
     PostType
 } from "../../../redux/store";
-import {addPostActionCreator, changeNewPostTextActionCreator} from "../../../redux/postReducer";
 
 
 type MyPostsPropsType = {
     posts: PostType[]
     newPostText: string
-    dispatch: (action: ActionType)=>void
+    addPost: ()=>void
+    updateNewPostText: (text: string)=>void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -20,13 +19,12 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
-    const addPost = () => {
-        props.dispatch(addPostActionCreator())
+    const onAddPost = () => {
+        props.addPost()
     }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-            const action: ActionType = changeNewPostTextActionCreator(e.currentTarget.value)
-            props.dispatch(action)
+            props.updateNewPostText(e.currentTarget.value)
     }
 
     return (
@@ -36,7 +34,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
                 <div><textarea placeholder={"Add new post..."} onChange={onPostChange} ref={newPostElement}
                                value={props.newPostText}/></div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={onAddPost}>Add post</button>
                 </div>
             </div>
             <div>

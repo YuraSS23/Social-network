@@ -3,16 +3,15 @@ import s from './Dialogs.module.css'
 import {DialogItem} from './dialogItem/DialogItem';
 import {Message} from './message/Message';
 import {
-    ActionType,
     MessagesPageType
 } from "../../redux/store";
 import {NavLink, Route, Routes} from "react-router-dom";
-import {addMessageActionCreator, changeNewMessageTextActionCreator} from "../../redux/dialogsReducer";
 
 
 type DialogsPropsType = {
     state: MessagesPageType
-    dispatch: (action: ActionType)=>void
+    addMessage: ()=>void
+    onMessageChange: (text: string)=>void
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -20,12 +19,11 @@ export const Dialogs = (props: DialogsPropsType) => {
     const dialogsElements = props.state.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
     const messagesElements = props.state.messages.map(m => <Message key={m.id} message={m.message}/>)
 
-    const AddMessage = () => {
-        props.dispatch(addMessageActionCreator())
+    const onAddMessage = () => {
+        props.addMessage()
     }
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const action: ActionType = changeNewMessageTextActionCreator(e.currentTarget.value)
-        props.dispatch(action)
+        props.onMessageChange(e.currentTarget.value)
     }
 
     return (
@@ -36,7 +34,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                     <NavLink to={'/dialogs'}>Back</NavLink>
                     {messagesElements}
                     <textarea value={props.state.newMessageText} onChange={onMessageChange} className={s.messageTextarea} placeholder={"Напииште сообщение..."}></textarea>
-                    <button onClick={AddMessage} className={s.messageButton}>Отправить сообщение</button>
+                    <button onClick={onAddMessage} className={s.messageButton}>Отправить сообщение</button>
                 </div>}/>
             </Routes>
         </div>
