@@ -1,4 +1,4 @@
-import {ActionType, MessagesPageType, SidebarType} from "./store";
+import {ActionType, SidebarType} from "./store";
 import {v1} from "uuid";
 
 const initialState = {
