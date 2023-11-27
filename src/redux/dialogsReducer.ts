@@ -31,8 +31,7 @@ export const dialogsReduser = (state: MessagesPageType = initialState, action: A
                 id: v1(),
                 message: state.newMessageText
             }
-            state.newMessageText = ""
-            return {...state, messages: [...state.messages, newMessage]}
+            return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
         }
         case UPDATE_NEW_MESSAGE_TEXT: {
             return {...state, newMessageText: action.newText}
