@@ -20,11 +20,9 @@ export const postsReduser = (state: ProfilePageType = initialState, action: Acti
                 likeCounts: 0,
                 message: state.newPostText
             }
-            state.newPostText = ""
-            return {...state, posts: [...state.posts, newPost]}
+            return {...state, posts: [newPost, ...state.posts], newPostText: ''}
         }
         case UPDATE_NEW_POST_TEXT: {
-            state.newPostText = action.newText
             return {...state, newPostText: action.newText}
         }
         default : {
