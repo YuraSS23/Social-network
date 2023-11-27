@@ -1,5 +1,6 @@
-import {ActionType, SidebarType} from "./store";
+import {SidebarType} from "./store";
 import {v1} from "uuid";
+import {ActionType} from "./redux-store";
 
 const initialState = {
     friends: [
