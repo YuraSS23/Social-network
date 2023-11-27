@@ -2,6 +2,7 @@ import {v1} from "uuid";
 import {dialogsReduser} from "./dialogsReducer";
 import {postsReduser} from "./postReducer";
 import {sidebarReduser} from "./sidebarReduser";
+import {ActionType} from "./redux-store";
 
 export type PostType = {
     id: string
@@ -51,26 +52,6 @@ export type StoreType = {
     subscribe: (observer: (state: StateType) => void)=>void
     dispatch: (action: ActionType)=>void
     getState: ()=>StateType
-}
-
-export type ActionType = AddPostActionType | UpdateNewPostActionType | AddMessageActionType | UpdateNewMessageActionType
-
-type AddPostActionType = {
-    type: "ADD-POST"
-}
-
-type UpdateNewPostActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newText: string
-}
-
-type AddMessageActionType = {
-    type: "ADD-MESSAGE"
-}
-
-type UpdateNewMessageActionType = {
-    type: "UPDATE-NEW-MESSAGE-TEXT"
-    newText: string
 }
 
 export let store = {
