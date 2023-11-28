@@ -1,59 +1,5 @@
-import {v1} from "uuid";
-import {dialogsReduser} from "./dialogsReducer";
-import {postsReduser} from "./postReducer";
-import {sidebarReduser} from "./sidebarReduser";
-import {ActionType} from "./redux-store";
-
-export type PostType = {
-    id: string
-    likeCounts: number
-    message: string
-}
-
-export type DialogsType = {
-    id: string
-    name: string
-}
-
-export type MessagesType = {
-    id: string
-    message: string
-}
-
-export type MessagesPageType = {
-    dialogs: DialogsType[]
-    messages: MessagesType[]
-    newMessageText: string
-}
-
-export type ProfilePageType = {
-    posts: PostType[]
-    newPostText: string
-}
-
-export type FriendType = {
-    id: string
-    name:string
-    avatar: string
-}
-
-export type SidebarType = {
-    friends: FriendType[]
-}
-
-export type StateType = {
-    profilePage: ProfilePageType
-    dialogsPage: MessagesPageType
-    sidebar: SidebarType
-}
-export type StoreType = {
-    _state: StateType
-    _callSubscriber: (state: StateType)=>void
-    subscribe: (observer: (state: StateType) => void)=>void
-    dispatch: (action: ActionType)=>void
-    getState: ()=>StateType
-}
-
+import React from "react";
+/*
 export let store = {
     _state: {
         profilePage: {
@@ -105,4 +51,4 @@ export let store = {
         sidebarReduser(this._state.sidebar, action)
         this._callSubscriber(store._state)
     }
-}
+}*/

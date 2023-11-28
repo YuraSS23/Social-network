@@ -2,10 +2,8 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from './dialogItem/DialogItem';
 import {Message} from './message/Message';
-import {
-    MessagesPageType
-} from "../../redux/store";
 import {NavLink, Route, Routes} from "react-router-dom";
+import {MessagesPageType} from "../../redux/dialogsReducer";
 
 
 type DialogsPropsType = {
@@ -31,7 +29,7 @@ export const Dialogs = (props: DialogsPropsType) => {
             <Routes>
                 <Route path={'/'} element={<div className={s.dialogsItems}>{dialogsElements}</div>}/>
                 <Route path={'dialogs/*'} element={<div className={s.messages}>
-                    <NavLink to={'/dialogs'}>Back</NavLink>
+                    <NavLink to={'/'}>Back</NavLink>
                     {messagesElements}
                     <textarea value={props.state.newMessageText} onChange={onMessageChange} className={s.messageTextarea} placeholder={"Напииште сообщение..."}></textarea>
                     <button onClick={onAddMessage} className={s.messageButton}>Отправить сообщение</button>

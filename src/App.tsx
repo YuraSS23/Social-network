@@ -7,7 +7,8 @@ import {News} from './components/news/News';
 import {Music} from './components/music/Music';
 import {Settings} from './components/settings/Settings';
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
-import {NavbarContainer} from "./components/navbar/NavbarContainer";
+import {Navbar} from "./components/navbar/Navbar";
+import {UsersContainer} from "./components/users/UsersContainer";
 
 
 type AppPropsType = {}
@@ -16,12 +17,13 @@ function App(props: AppPropsType) {
     return (
         <div className={'app-wrapper'}>
             <Header/>
-            <NavbarContainer />
+            <Navbar />
             <div className={'app-wrapper-content'}>
                 <Routes>
                     <Route path={'/'} element={<Profile/>}/>
                     <Route path={'/profile'} element={<Profile/>}/>
                     <Route path={'/dialogs/*'} element={<DialogsContainer/>}/>
+                    <Route path={'/users'} element={<UsersContainer/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>

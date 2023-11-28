@@ -1,4 +1,3 @@
-import {StateType} from "./redux/store";
 import {store} from "./redux/redux-store";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
