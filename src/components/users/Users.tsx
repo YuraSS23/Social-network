@@ -9,7 +9,7 @@ export const Users = (props: UsersPropsType) => {
             {props.usersPage.users.map(el => {
                 return (
                     <div key={el.id} className={s.user}>
-                        <img src={el.avatar} className={s.userPhoto}/>
+                        <img src={el.avatar} className={s.userPhoto} alt={'avatar'}/>
                         <div>
                             <div className={s.name}>{el.fullName}</div>
                             <div className={s.status}>{el.status}</div>

@@ -1,4 +1,3 @@
-import React from 'react';
 import {addPostActionCreator, changeNewPostTextActionCreator, PostType} from "../../../redux/postReducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
