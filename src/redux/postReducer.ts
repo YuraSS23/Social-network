@@ -4,14 +4,15 @@ import {ActionType} from "./redux-store";
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
-export type ProfilePageType = {
-    posts: PostType[]
-    newPostText: string
-}
 export type PostType = {
     id: string
     likeCounts: number
     message: string
+}
+
+export type ProfilePageType = {
+    posts: PostType[]
+    newPostText: string
 }
 
 export type AddPostActionType = {
@@ -23,7 +24,7 @@ export type UpdateNewPostActionType = {
     newText: string
 }
 
-const initialState = {
+const initialState: ProfilePageType = {
     posts: [
         {id: v1(), likeCounts: 15, message: 'Hi, how are you?'},
         {id: v1(), likeCounts: 20, message: 'It\'s my first post'}
@@ -50,5 +51,8 @@ export const postsReduser = (state: ProfilePageType = initialState, action: Acti
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST}) as const
-export const changeNewPostTextActionCreator = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text}) as const
+export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST}) as const
+export const changeNewPostTextActionCreator = (text: string): UpdateNewPostActionType => ({
+    type: UPDATE_NEW_POST_TEXT,
+    newText: text
+}) as const

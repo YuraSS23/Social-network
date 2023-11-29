@@ -1,22 +1,24 @@
 import {v1} from "uuid";
 import {ActionType} from "./redux-store";
 
+const ADD_MESSAGE = 'ADD-MESSAGE'
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
+
 type MessagesType = {
     id: string
     message: string
 }
-type DialogsType = {
+
+export type DialogsType = {
     id: string
     name: string
 }
+
 export type MessagesPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
     newMessageText: string
 }
-
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
 export type AddMessageActionType = {
     type: "ADD-MESSAGE"
@@ -27,7 +29,7 @@ export type UpdateNewMessageActionType = {
     newText: string
 }
 
-const initialState = {
+const initialState: MessagesPageType = {
     dialogs: [
         {id: v1(), name: 'Dimych'},
         {id: v1(), name: 'Valera'},
@@ -36,7 +38,7 @@ const initialState = {
         {id: v1(), name: 'Igor'},
         {id: v1(), name: 'Tolik'}
     ],
-        messages: [
+    messages: [
         {id: v1(), message: 'Hi'},
         {id: v1(), message: 'Yo'},
         {id: v1(), message: 'This is IT-kamasutra'},
@@ -44,7 +46,7 @@ const initialState = {
         {id: v1(), message: 'Hi'},
         {id: v1(), message: 'Hi'},
     ],
-        newMessageText: "",
+    newMessageText: "",
 }
 
 export const dialogsReduser = (state: MessagesPageType = initialState, action: ActionType): MessagesPageType => {
@@ -65,8 +67,8 @@ export const dialogsReduser = (state: MessagesPageType = initialState, action: A
     }
 }
 
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE}) as const
-export const changeNewMessageTextActionCreator = (text: string) => ({
+export const addMessageActionCreator = (): AddMessageActionType => ({type: ADD_MESSAGE}) as const
+export const changeNewMessageTextActionCreator = (text: string): UpdateNewMessageActionType => ({
     type: UPDATE_NEW_MESSAGE_TEXT,
     newText: text
 }) as const

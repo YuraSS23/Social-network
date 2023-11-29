@@ -14,11 +14,11 @@ export type userType = {
     avatar: string
 }
 
-type UsersType = {
+export type UsersPageType = {
     users: userType[]
 }
 
-const initialState: UsersType = {
+const initialState: UsersPageType = {
     users: [
         {
             id: v1(),
@@ -44,7 +44,7 @@ const initialState: UsersType = {
     ]
 }
 
-export const usersReducer = (state: UsersType = initialState, action: ActionType): UsersType => {
+export const usersReducer = (state: UsersPageType = initialState, action: ActionType): UsersPageType => {
     switch (action.type) {
         default: {
             return state
