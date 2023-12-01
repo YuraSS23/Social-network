@@ -34,7 +34,7 @@
     object-fit: cover;
 }
 
-.unfollow {
+.follow {
     color: white;
     background-color: blue;
 }

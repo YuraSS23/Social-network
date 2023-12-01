@@ -1,10 +1,36 @@
 import React from 'react';
 import s from "./Users.module.css"
 import {UsersPropsType} from "./UsersContainer";
+import {v1} from "uuid";
 
 export const Users = (props: UsersPropsType) => {
-    const onClickhandler =  (userID: string, followed: boolean) => {
-        followed ? props.unFollow(userID) : props.follow(userID)
+    if (props.usersPage.users.length === 0) {
+        props.setUsers([
+            {
+                id: v1(),
+                followed: false,
+                fullName: 'Dimych',
+                status: "I am Boss",
+                location: {city: "Minsk", country: "Belarus"},
+                avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'
+            },
+            {
+                id: v1(),
+                followed: true,
+                fullName: 'Valera',
+                status: "I am Boss",
+                location: {city: "Minsk", country: "Belarus"},
+                avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'
+            },
+            {
+                id: v1(),
+                followed: false,
+                fullName: 'Svetlana',
+                status: "I am Boss",
+                location: {city: "Minsk", country: "Belarus"},
+                avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'
+            },
+        ])
     }
     return <div>
         <div className={s.pageName}>Users</div>
@@ -21,8 +47,13 @@ export const Users = (props: UsersPropsType) => {
                             <div>{el.location.city},</div>
                             <div>{el.location.country}</div>
                         </div>
-                        <button className={el.followed? s.follow : s.unfollow}
-                                onClick={()=>onClickhandler(el.id, el.followed)}>{el.followed ? "UNFOLLOW" : "FOLLOW"}</button>
+                        {el.followed
+                            ? <button onClick={() => {
+                                props.unFollow(el.id)
+                            }}>UNFOLLOW</button>
+                            : <button className={s.follow} onClick={() => {
+                                props.follow(el.id)
+                            }}>FOLLOW</button>}
                     </div>
                 )
             })}

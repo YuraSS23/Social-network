@@ -1,8 +1,8 @@
-import {v1} from "uuid";
 import {ActionType} from "./redux-store";
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
+const SET_USERS = "SET_USERS"
 
 type LocationType = {
     city: string
@@ -23,32 +23,7 @@ export type UsersPageType = {
 }
 
 const initialState: UsersPageType = {
-    users: [
-        {
-            id: v1(),
-            followed: false,
-            fullName: 'Dimych',
-            status: "I am Boss",
-            location: {city: "Minsk", country: "Belarus"},
-            avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'
-        },
-        {
-            id: v1(),
-            followed: true,
-            fullName: 'Valera',
-            status: "I am Boss",
-            location: {city: "Minsk", country: "Belarus"},
-            avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'
-        },
-        {
-            id: v1(),
-            followed: false,
-            fullName: 'Svetlana',
-            status: "I am Boss",
-            location: {city: "Minsk", country: "Belarus"},
-            avatar: 'https://cs13.pikabu.ru/post_img/big/2023/02/13/8/1676295806122712757.png'
-        },
-    ]
+    users: []
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionType): UsersPageType => {
@@ -58,6 +33,9 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
         }
         case UNFOLLOW: {
             return {...state, users: state.users.map(el => el.id === action.userID ? {...el, followed: false} : el)}
+        }
+        case SET_USERS: {
+            return {...state, users: [...state.users, ...action.users]}
         }
         default: {
             return state
@@ -73,6 +51,11 @@ export type unFollowACType = {
     type: "UNFOLLOW"
     userID: string
 }
+export type setUsersACType = {
+    type: "SET_USERS"
+    users: userType[]
+}
 
 export const followAC = (userID: string): followACType => ({type: FOLLOW, userID})
 export const unFollowAC = (userID: string): unFollowACType =>({type: UNFOLLOW, userID})
+export const setUsersAC = (users: userType[]): setUsersACType => ({type: SET_USERS, users})
