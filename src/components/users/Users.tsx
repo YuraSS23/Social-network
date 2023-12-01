@@ -3,6 +3,9 @@ import s from "./Users.module.css"
 import {UsersPropsType} from "./UsersContainer";
 
 export const Users = (props: UsersPropsType) => {
+    const onClickhandler =  (userID: string, followed: boolean) => {
+        followed ? props.unFollow(userID) : props.follow(userID)
+    }
     return <div>
         <div className={s.pageName}>Users</div>
         <div className={s.usersMap}>
@@ -18,6 +21,8 @@ export const Users = (props: UsersPropsType) => {
                             <div>{el.location.city},</div>
                             <div>{el.location.country}</div>
                         </div>
+                        <button className={el.followed? s.follow : s.unfollow}
+                                onClick={()=>onClickhandler(el.id, el.followed)}>{el.followed ? "UNFOLLOW" : "FOLLOW"}</button>
                     </div>
                 )
             })}

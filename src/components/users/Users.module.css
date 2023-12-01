@@ -35,8 +35,8 @@
 }
 
 .unfollow {
-    background: #D9D9D9;
-    border: none;
+    color: white;
+    background-color: blue;
 }
 
 .name {
@@ -63,4 +63,15 @@
     align-items: center;
     justify-content: center;
     margin: 20px;
+}
+
+.showMore button {
+    width: 200px;
+    height: 30px;
+    border-radius: 20px;
+}
+
+button {
+    background: #D9D9D9;
+    border: none;
 }
