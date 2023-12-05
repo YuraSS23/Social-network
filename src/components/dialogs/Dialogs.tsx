@@ -21,7 +21,7 @@ export const Dialogs = (props: DialogsPropsType) => {
             <Routes>
                 <Route path={'/'} element={<div className={s.dialogsItems}>{dialogsElements}</div>}/>
                 <Route path={'dialogs/*'} element={<div className={s.messages}>
-                    <NavLink to={'/'}>Back</NavLink>
+                    <NavLink to={'/dialogs'}>Back</NavLink>
                     {messagesElements}
                     <textarea value={props.dialogsPage.newMessageText} onChange={onMessageChange}
                               className={s.messageTextarea} placeholder={"Напииште сообщение..."}></textarea>
