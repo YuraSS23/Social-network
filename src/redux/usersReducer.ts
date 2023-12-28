@@ -39,7 +39,7 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
             return {...state, users: state.users.map(el => el.id === action.userID ? {...el, followed: false} : el)}
         }
         case SET_USERS: {
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: action.users}
         }
         default: {
             return state
