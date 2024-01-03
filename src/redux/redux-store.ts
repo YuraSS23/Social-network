@@ -2,9 +2,16 @@ import {combineReducers, createStore} from "redux";
 import {AddMessageActionType, dialogsReduser, UpdateNewMessageActionType} from "./dialogsReducer";
 import {AddPostActionType, postsReduser, UpdateNewPostActionType} from "./postReducer";
 import {sidebarReduser} from "./sidebarReduser";
-import {followACType, setUsersACType, unFollowACType, usersReducer} from "./usersReducer";
+import {
+    followACType,
+    setCurrentPageACType,
+    setUsersACType,
+    unFollowACType,
+    usersReducer
+} from "./usersReducer";
 
-export type ActionType = AddPostActionType | UpdateNewPostActionType | AddMessageActionType | UpdateNewMessageActionType | followACType | unFollowACType | setUsersACType
+export type ActionType = AddPostActionType | UpdateNewPostActionType | AddMessageActionType
+    | UpdateNewMessageActionType | followACType | unFollowACType | setUsersACType | setCurrentPageACType
 
 let rootReducer = combineReducers({
     profilePage : postsReduser,
