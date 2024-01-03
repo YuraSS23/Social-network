@@ -12,26 +12,26 @@ export class Users extends React.Component<UsersPropsType> {
             })
     }
     render (){
-        const numberClick = (e: React.MouseEvent<HTMLButtonElement>)=>{
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${e.currentTarget.textContent}&count=4`)
-                .then(response => {
-                    this.props.setUsers(response.data.items)
-                })
-            this.props.setCurrentPage(Number(e.currentTarget.textContent))
-        }
-        const startClick = (e: React.MouseEvent<HTMLButtonElement>)=>{
-            this.props.setCurrentPage(1)
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=1&count=4`)
-                .then(response => {
-                    this.props.setUsers(response.data.items)
-                })
-        }
-        const nextClick = (e: React.MouseEvent<HTMLButtonElement>)=>{
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage+1}&count=4`)
-                .then(response => {
-                    this.props.setUsers(response.data.items)
-                })
-            this.props.setCurrentPage(this.props.usersPage.currentPage+1)
+        const onPageNumberClick = (e: React.MouseEvent<HTMLButtonElement>)=>{
+            if (e.currentTarget.textContent === "В начало") {
+                this.props.setCurrentPage(1)
+                axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=1&count=4`)
+                    .then(response => {
+                        this.props.setUsers(response.data.items)
+                    })
+            } else if (e.currentTarget.textContent === "дальше") {
+                axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage+1}&count=4`)
+                    .then(response => {
+                        this.props.setUsers(response.data.items)
+                    })
+                this.props.setCurrentPage(this.props.usersPage.currentPage+1)
+            } else {
+                axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${e.currentTarget.textContent}&count=4`)
+                    .then(response => {
+                        this.props.setUsers(response.data.items)
+                    })
+                this.props.setCurrentPage(Number(e.currentTarget.textContent))
+            }
         }
         return <div>
             <div className={s.pageName}>Users</div>
@@ -60,11 +60,11 @@ export class Users extends React.Component<UsersPropsType> {
                 })}
             </div>
             <div className={s.showMore}>
-                {this.props.usersPage.currentPage>3&&<button className={s.startend} onClick={startClick}>В начало</button>}
+                {this.props.usersPage.currentPage>3&&<button className={s.startend} onClick={onPageNumberClick}>В начало</button>}
                 {this.props.usersPage.pages.map(el=>{
-                    return <button className={`${s.number} ${this.props.usersPage.currentPage===el?s.current:""}`} onClick={numberClick}>{el}</button>
+                    return <button className={`${s.number} ${this.props.usersPage.currentPage===el?s.current:""}`} onClick={onPageNumberClick}>{el}</button>
                 })}
-                <button className={s.startend} onClick={nextClick}>дальше</button>
+                <button className={s.startend} onClick={onPageNumberClick}>дальше</button>
             </div>
         </div>
     }
