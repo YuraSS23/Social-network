@@ -48,7 +48,7 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
         }
         case SET_CURRENT_PAGE: {
             if (action.currentPage>3) {
-                return {...state, pages: state.pages.map(el=>el+action.currentPage-state.currentPage), currentPage: action.currentPage}
+                return {...state, pages: state.pages.map((el,index)=>index-2+action.currentPage), currentPage: action.currentPage}
             } else return {...state, pages: [1,2,3,4,5], currentPage: action.currentPage}
         }
         default: {
