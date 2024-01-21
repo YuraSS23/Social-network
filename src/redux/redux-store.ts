@@ -4,17 +4,18 @@ import {AddPostActionType, postsReduser, UpdateNewPostActionType} from "./postRe
 import {sidebarReduser} from "./sidebarReduser";
 import {
     followACType,
-    setCurrentPageACType,
+    setCurrentPageACType, setIsFetchingACType,
     setUsersACType,
     unFollowACType,
     usersReducer
 } from "./usersReducer";
 
 export type ActionType = AddPostActionType | UpdateNewPostActionType | AddMessageActionType
-    | UpdateNewMessageActionType | followACType | unFollowACType | setUsersACType | setCurrentPageACType
+    | UpdateNewMessageActionType | followACType | unFollowACType | setUsersACType | setCurrentPageACType |
+    setIsFetchingACType
 
 let rootReducer = combineReducers({
-    profilePage : postsReduser,
+    profilePage: postsReduser,
     dialogsPage: dialogsReduser,
     sidebar: sidebarReduser,
     usersPage: usersReducer

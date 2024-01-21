@@ -4,6 +4,7 @@ const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET_USERS"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
+const SET_IS_FETCHING = "SET_IS_FETCHING"
 
 type LocationType = {
     city: string
@@ -27,12 +28,14 @@ export type UsersPageType = {
     users: userType[]
     currentPage: number
     pages: number[]
+    isFetching: boolean
 }
 
 const initialState: UsersPageType = {
     users: [],
     currentPage: 1,
-    pages: [1,2,3,4,5]
+    pages: [1, 2, 3, 4, 5],
+    isFetching: false
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionType): UsersPageType => {
@@ -47,9 +50,16 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
             return {...state, users: action.users}
         }
         case SET_CURRENT_PAGE: {
-            if (action.currentPage>3) {
-                return {...state, pages: state.pages.map((el,index)=>index-2+action.currentPage), currentPage: action.currentPage}
-            } else return {...state, pages: [1,2,3,4,5], currentPage: action.currentPage}
+            if (action.currentPage > 3) {
+                return {
+                    ...state,
+                    pages: state.pages.map((el, index) => index - 2 + action.currentPage),
+                    currentPage: action.currentPage
+                }
+            } else return {...state, pages: [1, 2, 3, 4, 5], currentPage: action.currentPage}
+        }
+        case SET_IS_FETCHING: {
+            return {...state, isFetching: action.isFetching}
         }
         default: {
             return state
@@ -73,8 +83,13 @@ export type setCurrentPageACType = {
     type: "SET_CURRENT_PAGE"
     currentPage: number
 }
+export type setIsFetchingACType = {
+    type: "SET_IS_FETCHING"
+    isFetching: boolean
+}
 
 export const followAC = (userID: string): followACType => ({type: FOLLOW, userID})
-export const unFollowAC = (userID: string): unFollowACType =>({type: UNFOLLOW, userID})
+export const unFollowAC = (userID: string): unFollowACType => ({type: UNFOLLOW, userID})
 export const setUsersAC = (users: userType[]): setUsersACType => ({type: SET_USERS, users})
 export const setCurrentPageAC = (currentPage: number): setCurrentPageACType => ({type: SET_CURRENT_PAGE, currentPage})
+export const setIsFetchingAC = (isFetching: boolean): setIsFetchingACType => ({type: SET_IS_FETCHING, isFetching})
