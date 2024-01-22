@@ -3,6 +3,7 @@ import s from "./Users.module.css"
 import img from '../../assets/images/image.png'
 import {UsersPageType} from "../../redux/usersReducer";
 import {Preloader} from "../common/Preloader";
+import {NavLink} from "react-router-dom";
 
 type UsersPropsType = {
     usersPage: UsersPageType
@@ -19,8 +20,10 @@ export const Users = (props: UsersPropsType) => {
                 : props.usersPage.users.map(el => {
                     return (
                         <div key={el.id} className={s.user}>
-                            <img src={el.photos.small !== null ? el.photos.small : img} className={s.userPhoto}
-                                 alt={'avatar'}/>
+                            <NavLink to={`/profile/${el.id}`}>
+                                <img src={el.photos.small !== null ? el.photos.small : img} className={s.userPhoto}
+                                     alt={'avatar'}/>
+                            </NavLink>
                             <div>
                                 <div className={s.name}>{el.name}</div>
                                 <div className={s.status}>{el.status}</div>
