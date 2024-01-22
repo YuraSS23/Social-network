@@ -1,6 +1,11 @@
 import {combineReducers, createStore} from "redux";
 import {AddMessageActionType, dialogsReduser, UpdateNewMessageActionType} from "./dialogsReducer";
-import {AddPostActionType, profileReduser, setUserProfileActionType, UpdateNewPostActionType} from "./profileReducer";
+import {
+    AddPostActionType,
+    profileReducer,
+    setUserProfileActionType,
+    UpdateNewPostActionType
+} from "./profileReducer";
 import {sidebarReduser} from "./sidebarReduser";
 import {
     followACType,
@@ -15,7 +20,7 @@ export type ActionType = AddPostActionType | UpdateNewPostActionType | AddMessag
     setIsFetchingACType | setUserProfileActionType
 
 let rootReducer = combineReducers({
-    profilePage: profileReduser,
+    profilePage: profileReducer,
     dialogsPage: dialogsReduser,
     sidebar: sidebarReduser,
     usersPage: usersReducer

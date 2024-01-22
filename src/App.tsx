@@ -8,7 +8,7 @@ import {Settings} from './components/settings/Settings';
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
 import {Navbar} from "./components/navbar/Navbar";
 import UsersContainer from "./components/users/UsersContainer";
-import ProfileContainer from "./components/profile/ProfileContainer";
+import {ProfileContainerWithRouter} from "./components/profile/ProfileContainerWithRouter";
 
 
 type AppPropsType = {}
@@ -20,8 +20,8 @@ function App(props: AppPropsType) {
             <Navbar />
             <div className={'app-wrapper-content'}>
                 <Routes>
-                    <Route path={'/'} element={<ProfileContainer/>}/>
-                    <Route path={'/profile/*'} element={<ProfileContainer/>}/>
+                    <Route path={'/'} element={<ProfileContainerWithRouter/>}/>
+                    <Route path={`/profile/:userID?`} element={<ProfileContainerWithRouter/>}/>
                     <Route path={'/dialogs/*'} element={<DialogsContainer/>}/>
                     <Route path={'/users'} element={<UsersContainer/>}/>
                     <Route path={'/news'} element={<News/>}/>

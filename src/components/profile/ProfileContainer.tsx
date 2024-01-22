@@ -12,23 +12,29 @@ import {
 
 type MapStatePropsType = {
     profile: ProfileType | null
+    userID: string | undefined
 }
 
 type MapDispatchPropsType = {
-    setUserProfile: (profile: ProfileType)=>void
-    addPost: ()=>void
-    changeNewPostText: (text: string)=>void
+    setUserProfile: (profile: ProfileType) => void
+    addPost: () => void
+    changeNewPostText: (text: string) => void
 }
 
 type ProfileContainerAPIPropsType = MapStatePropsType & MapDispatchPropsType
 
 class ProfileContainer extends React.Component<ProfileContainerAPIPropsType> {
     componentDidMount() {
-        axios.get("https://social-network.samuraijs.com/api/1.0/profile/30581")
+        let userID = this.props.userID
+        if (!userID) {
+            userID = "30581"
+        }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`)
             .then((response) =>
                 this.props.setUserProfile(response.data)
             )
     }
+
     render() {
         return <Profile {...this.props} profile={this.props.profile}/>
     }
