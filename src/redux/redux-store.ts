@@ -14,16 +14,18 @@ import {
     unFollowACType,
     usersReducer
 } from "./usersReducer";
+import {authReducer, authReducerActionType} from "./authReducer";
 
 export type ActionType = AddPostActionType | UpdateNewPostActionType | AddMessageActionType
     | UpdateNewMessageActionType | followACType | unFollowACType | setUsersACType | setCurrentPageACType |
-    setIsFetchingACType | setUserProfileActionType
+    setIsFetchingACType | setUserProfileActionType | authReducerActionType
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReduser,
     sidebar: sidebarReduser,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    auth: authReducer
 })
 
 export type RootStateType = ReturnType<typeof rootReducer>
