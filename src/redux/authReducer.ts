@@ -2,26 +2,32 @@ import {ActionType} from "./redux-store";
 
 const SET_USER_DATA = 'SET-USER-DATA'
 
-type authReducerPageType = {
-    email: string | null
-    userID: string | null
+export type DataType = {
+    id: string | null
     login: string | null
+    email: string | null
+}
+
+type AuthPropsType = {
+    data: DataType
     isAuth: boolean
 }
 
-const initialState: authReducerPageType = {
-    email: null,
-    userID: null,
-    login: null,
+const initialState: AuthPropsType = {
+    data: {
+        id: null,
+        login: null,
+        email: null,
+    },
     isAuth: false
 }
 
-export const authReducer = (state: authReducerPageType = initialState, action: ActionType): authReducerPageType => {
+export const authReducer = (state: AuthPropsType = initialState, action: ActionType): AuthPropsType => {
     switch (action.type) {
         case SET_USER_DATA : {
             return {
                 ...state,
-                ...action.data,
+                data: {...action.data},
                 isAuth: true
             }
         }
@@ -33,12 +39,8 @@ export const authReducer = (state: authReducerPageType = initialState, action: A
 
 export type authReducerActionType = ReturnType<typeof setAuthUserData>
 
-export const setAuthUserData = (email: string | null, userID: string | null, login: string | null) => (
+export const setAuthUserData = (data: DataType) => (
     {
         type: SET_USER_DATA,
-        data: {
-            email,
-            userID,
-            login
-        }
+        data
     }) as const
