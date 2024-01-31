@@ -4,7 +4,7 @@ import img from '../../assets/images/image.png'
 import {UsersPageType} from "../../redux/usersReducer";
 import {Preloader} from "../common/Preloader";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {api} from "../../api/api";
 
 type UsersPropsType = {
     usersPage: UsersPageType
@@ -35,8 +35,7 @@ export const Users = (props: UsersPropsType) => {
                             </div>
                             {el.followed
                                 ? <button className={s.unFollow} onClick={() => {
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`,
-                                        {withCredentials: true})
+                                    api.unFollow(el.id)
                                         .then(response => {
                                             if (response.data.resultCode === 0) {
                                                 props.unFollow(el.id)
@@ -44,8 +43,7 @@ export const Users = (props: UsersPropsType) => {
                                         })
                                 }}>UNFOLLOW</button>
                                 : <button className={s.follow} onClick={() => {
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {},
-                                        {withCredentials: true})
+                                    api.follow(el.id)
                                         .then(response => {
                                             if (response.data.resultCode === 0) {
                                                 props.follow(el.id)

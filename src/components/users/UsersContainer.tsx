@@ -10,8 +10,8 @@ import {
     userType
 } from "../../redux/usersReducer";
 import React from "react";
-import axios from "axios";
 import {Users} from "./Users";
+import {api} from "../../api/api";
 
 type mapStateToPropsType = {
     usersPage: UsersPageType
@@ -30,10 +30,9 @@ type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 export class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.setIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=4`,
-            {withCredentials: true})
-            .then(response => {
-                this.props.setUsers(response.data.items)
+        api.getUsers(this.props.usersPage.currentPage)
+            .then(data => {
+                this.props.setUsers(data.items)
                 this.props.setIsFetching(false)
             })
     }
@@ -42,27 +41,24 @@ export class UsersContainer extends React.Component<UsersPropsType> {
         if (clickedTextContent === "В начало") {
             this.props.setIsFetching(true)
             this.props.setCurrentPage(1)
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=1&count=4`,
-                {withCredentials: true})
-                .then(response => {
-                    this.props.setUsers(response.data.items)
+            api.getUsers(1)
+                .then(data => {
+                    this.props.setUsers(data.items)
                     this.props.setIsFetching(false)
                 })
         } else if (clickedTextContent === "дальше") {
             this.props.setIsFetching(true)
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage + 1}&count=4`,
-                {withCredentials: true})
-                .then(response => {
-                    this.props.setUsers(response.data.items)
+            api.getUsers(this.props.usersPage.currentPage + 1)
+                .then(data => {
+                    this.props.setUsers(data.items)
                     this.props.setIsFetching(false)
                 })
             this.props.setCurrentPage(this.props.usersPage.currentPage + 1)
         } else {
             this.props.setIsFetching(true)
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${clickedTextContent}&count=4`,
-                {withCredentials: true})
-                .then(response => {
-                    this.props.setUsers(response.data.items)
+            api.getUsers(Number(clickedTextContent))
+                .then(data => {
+                    this.props.setUsers(data.items)
                     this.props.setIsFetching(false)
                 })
             this.props.setCurrentPage(Number(clickedTextContent))
