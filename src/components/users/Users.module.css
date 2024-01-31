@@ -38,6 +38,9 @@
     color: white;
     background-color: blue;
 }
+.unFollow {
+    border: 1px solid blue;
+}
 
 .name {
     color: #171515;
