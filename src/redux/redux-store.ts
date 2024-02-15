@@ -9,7 +9,7 @@ import {
 import {sidebarReduser} from "./sidebarReduser";
 import {
     followACType,
-    setCurrentPageACType, setIsFetchingACType,
+    setCurrentPageACType, setIsFetchingACType, setLoadingACType,
     setUsersACType,
     unFollowACType,
     usersReducer
@@ -18,7 +18,7 @@ import {authReducer, authReducerActionType} from "./authReducer";
 
 export type ActionType = AddPostActionType | UpdateNewPostActionType | AddMessageActionType
     | UpdateNewMessageActionType | followACType | unFollowACType | setUsersACType | setCurrentPageACType |
-    setIsFetchingACType | setUserProfileActionType | authReducerActionType
+    setIsFetchingACType | setUserProfileActionType | authReducerActionType | setLoadingACType
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,

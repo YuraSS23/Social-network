@@ -38,6 +38,10 @@
     color: white;
     background-color: blue;
 }
+.follow:disabled {
+    background-color: #5353f5;
+}
+
 .unFollow {
     border: 1px solid blue;
 }

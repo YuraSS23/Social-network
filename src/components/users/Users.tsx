@@ -4,12 +4,11 @@ import img from '../../assets/images/image.png'
 import {UsersPageType} from "../../redux/usersReducer";
 import {Preloader} from "../common/Preloader";
 import {NavLink} from "react-router-dom";
-import {api} from "../../api/api";
 
 type UsersPropsType = {
     usersPage: UsersPageType
-    follow: (userID: string) => void
-    unFollow: (userID: string) => void
+    follow: (userId: string) => void
+    unFollow: (userId: string) => void
     onPageNumberClick: (clickedTextContent: string | null) => void
 }
 
@@ -34,22 +33,14 @@ export const Users = (props: UsersPropsType) => {
                                 <div>{"el.location.country"}</div>
                             </div>
                             {el.followed
-                                ? <button className={s.unFollow} onClick={() => {
-                                    api.unFollow(el.id)
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                props.unFollow(el.id)
-                                            }
-                                        })
-                                }}>UNFOLLOW</button>
-                                : <button className={s.follow} onClick={() => {
-                                    api.follow(el.id)
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                props.follow(el.id)
-                                            }
-                                        })
-                                }}>FOLLOW</button>}
+                                ? <button className={s.unFollow}
+                                          onClick={() => {props.unFollow(el.id)}}
+                                          disabled={props.usersPage.isLoading.some(id=>id ===el.id)}
+                                >UNFOLLOW</button>
+                                : <button className={s.follow}
+                                          onClick={() => {props.follow(el.id)}}
+                                          disabled={props.usersPage.isLoading.some(id=>id ===el.id)}
+                                >FOLLOW</button>}
                         </div>
                     )
                 })}

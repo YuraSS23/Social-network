@@ -4,6 +4,7 @@ import {
     followAC as follow,
     setCurrentPageAC as setCurrentPage,
     setIsFetchingAC as setIsFetching,
+    setLoadingAC as setLoading,
     setUsersAC as setUsers,
     unFollowAC as unFollow,
     UsersPageType,
@@ -23,6 +24,7 @@ type mapDispatchToPropsType = {
     setUsers: (users: userType[]) => void
     setCurrentPage: (currentPage: number) => void
     setIsFetching: (isFetching: boolean) => void
+    setLoading: (isFetching: boolean, userId: string) => void
 }
 
 type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -65,25 +67,48 @@ export class UsersContainer extends React.Component<UsersPropsType> {
         }
     }
 
+    unFollow = (userID: string) => {
+        this.props.setLoading(true, userID)
+        api.unFollow(userID)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    this.props.unFollow(userID)
+                }
+                this.props.setLoading(false, userID)
+            })
+    }
+
+    follow = (userID: string) => {
+        this.props.setLoading(true, userID)
+        api.follow(userID)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    this.props.follow(userID)
+                }
+                this.props.setLoading(false, userID)
+            })
+    }
+
     render() {
         return <Users onPageNumberClick={this.onPageNumberClick}
                       usersPage={this.props.usersPage}
-                      follow={this.props.follow}
-                      unFollow={this.props.unFollow}
+            follow={this.follow}
+            unFollow={this.unFollow}
         />
     }
 }
 
 let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
-    return {
-        usersPage: state.usersPage
+        return {
+            usersPage: state.usersPage
+        }
     }
-}
 
 export default connect(mapStateToProps, {
     follow,
     unFollow,
     setUsers,
     setCurrentPage,
-    setIsFetching
+    setIsFetching,
+    setLoading
 })(UsersContainer)

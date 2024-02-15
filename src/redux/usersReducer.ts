@@ -5,6 +5,7 @@ const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET_USERS"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_IS_FETCHING = "SET_IS_FETCHING"
+const SET_LOADING = "SET_LOADING"
 
 type LocationType = {
     city: string
@@ -29,13 +30,15 @@ export type UsersPageType = {
     currentPage: number
     pages: number[]
     isFetching: boolean
+    isLoading: string[]
 }
 
 const initialState: UsersPageType = {
     users: [],
     currentPage: 1,
     pages: [1, 2, 3, 4, 5],
-    isFetching: false
+    isFetching: false,
+    isLoading: []
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionType): UsersPageType => {
@@ -60,6 +63,12 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
         }
         case SET_IS_FETCHING: {
             return {...state, isFetching: action.isFetching}
+        }
+        case SET_LOADING: {
+            return {...state,
+                isLoading: action.isFetching
+                ? [...state.isLoading, action.userId]
+                : state.isLoading.filter(id => id !== action.userId)}
         }
         default: {
             return state
@@ -87,9 +96,16 @@ export type setIsFetchingACType = {
     type: "SET_IS_FETCHING"
     isFetching: boolean
 }
+export type setLoadingACType = {
+    type: "SET_LOADING"
+    isFetching: boolean
+    userId: string
+}
 
 export const followAC = (userID: string): followACType => ({type: FOLLOW, userID})
 export const unFollowAC = (userID: string): unFollowACType => ({type: UNFOLLOW, userID})
 export const setUsersAC = (users: userType[]): setUsersACType => ({type: SET_USERS, users})
 export const setCurrentPageAC = (currentPage: number): setCurrentPageACType => ({type: SET_CURRENT_PAGE, currentPage})
 export const setIsFetchingAC = (isFetching: boolean): setIsFetchingACType => ({type: SET_IS_FETCHING, isFetching})
+export const setLoadingAC = (isFetching: boolean, userId: string): setLoadingACType =>
+    ({type: SET_LOADING, isFetching, userId})
