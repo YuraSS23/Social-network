@@ -1,4 +1,4 @@
-import {ActionType} from "./redux-store";
+import {ActionType, AppThunk} from "./redux-store";
 import {ThunkDispatch} from "redux-thunk";
 import {api} from "../api/api";
 
@@ -96,9 +96,9 @@ export const setLoadingAC = (isFetching: boolean, userId: string) =>
     ({type: SET_LOADING, isFetching, userId}) as const
 
 
-export const followTC = (userID: string, follow: boolean) => (dispatch: ThunkDispatch<UsersPageType, unknown, ActionType>) => {
+export const followTC = (userID: string, follow: boolean): AppThunk => (dispatch: ThunkDispatch<UsersPageType, unknown, ActionType>) => {
     dispatch(setLoadingAC(true, userID));
-    (follow ?  api.follow(userID) :  api.unFollow(userID))
+    (follow ? api.follow(userID) : api.unFollow(userID))
         .then(response => {
             if (response.data.resultCode === 0) {
                 follow ? dispatch(followAC(userID)) : dispatch(unFollowAC(userID))
@@ -107,7 +107,7 @@ export const followTC = (userID: string, follow: boolean) => (dispatch: ThunkDis
         })
 }
 
-export const getUsersTC = (page: number) => (dispatch: ThunkDispatch<UsersPageType, unknown, ActionType>) => {
+export const getUsersTC = (page: number): AppThunk => (dispatch: ThunkDispatch<UsersPageType, unknown, ActionType>) => {
     dispatch(setCurrentPageAC(page))
     dispatch(setIsFetchingAC(true))
     api.getUsers(page)

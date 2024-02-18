@@ -33,5 +33,11 @@ export const api =  {
     },
     authMe(){
         return instance.get("auth/me")
+    },
+    getUser(userID: string){
+        return instance.get(`profile/${userID}`)
+            .then(response => {
+                return response.data
+            })
     }
 };

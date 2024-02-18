@@ -1,12 +1,10 @@
 import React from 'react';
 import s from './Header.module.css';
 import {NavLink} from "react-router-dom";
-import {DataType} from "../../redux/authReducer";
 
 type HeaderPropsType = {
     login: string | null
     isAuth: boolean
-    setAuthUserData: (data: DataType) => void
 }
 
 export const Header = (props: HeaderPropsType) => {

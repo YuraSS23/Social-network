@@ -1,4 +1,6 @@
-import {ActionType} from "./redux-store";
+import {ActionType, AppThunk} from "./redux-store";
+import {ThunkDispatch} from "redux-thunk";
+import {api} from "../api/api";
 
 const SET_USER_DATA = 'SET-USER-DATA'
 
@@ -39,8 +41,13 @@ export const authReducer = (state: AuthPropsType = initialState, action: ActionT
 
 export type authReducerActionType = ReturnType<typeof setAuthUserData>
 
-export const setAuthUserData = (data: DataType) => (
-    {
-        type: SET_USER_DATA,
-        data
-    }) as const
+export const setAuthUserData = (data: DataType) => ({type: SET_USER_DATA, data}) as const
+
+export const authTC = (): AppThunk => (dispatch: ThunkDispatch<AuthPropsType, unknown, ActionType>) => {
+    api.authMe()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserData(response.data.data))
+            }
+        })
+}

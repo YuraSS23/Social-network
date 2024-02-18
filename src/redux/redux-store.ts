@@ -15,7 +15,7 @@ import {
     usersReducer
 } from "./usersReducer";
 import {authReducer, authReducerActionType} from "./authReducer";
-import thunk from "redux-thunk";
+import thunk, {ThunkAction} from "redux-thunk";
 
 export type ActionType = AddPostActionType | UpdateNewPostActionType | AddMessageActionType
     | UpdateNewMessageActionType | followACType | unFollowACType | setUsersACType | setCurrentPageACType |
@@ -28,6 +28,8 @@ let rootReducer = combineReducers({
     usersPage: usersReducer,
     auth: authReducer
 })
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootStateType, unknown, ActionType>
 
 export type RootStateType = ReturnType<typeof rootReducer>
 

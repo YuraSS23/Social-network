@@ -5,7 +5,6 @@ import {MyPostsContainer} from "./myPosts/MyPostsContainer";
 import {ProfileType} from "../../redux/profileReducer";
 
 type ProfilePropsType = {
-    setUserProfile: (profile: ProfileType)=>void
     addPost: ()=>void
     changeNewPostText: (text: string)=>void
     profile: ProfileType | null
