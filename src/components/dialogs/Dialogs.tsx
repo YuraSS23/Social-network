@@ -4,6 +4,7 @@ import {DialogItem} from './dialogItem/DialogItem';
 import {Message} from './message/Message';
 import {NavLink, Route, Routes} from "react-router-dom";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Navigate} from "react-router-dom"
 
 export const Dialogs = (props: DialogsPropsType) => {
     const dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
@@ -15,7 +16,7 @@ export const Dialogs = (props: DialogsPropsType) => {
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onMessageChange(e.currentTarget.value)
     }
-
+    if (!props.isAuth) return <Navigate to={'/login'} replace={true}/>
     return (
         <div className={s.dialogs}>
             <Routes>

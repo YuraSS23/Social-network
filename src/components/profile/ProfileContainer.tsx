@@ -8,10 +8,12 @@ import {
     getUserTC,
     ProfileType
 } from "../../redux/profileReducer";
+import {Navigate} from "react-router-dom";
 
 type MapStatePropsType = {
     profile: ProfileType | null
     userID: string | undefined
+    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
@@ -32,13 +34,15 @@ class ProfileContainer extends React.Component<ProfileContainerAPIPropsType> {
     }
 
     render() {
+        if (!this.props.isAuth) return <Navigate to={'/login'} replace={true}/>
         return <Profile {...this.props} />
     }
 };
 
 const mapStateToProps = (state: RootStateType) => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        isAuth: state.auth.isAuth
     }
 }
 

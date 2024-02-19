@@ -9,6 +9,7 @@ import {Navbar} from "./components/navbar/Navbar";
 import UsersContainer from "./components/users/UsersContainer";
 import {ProfileContainerWithRouter} from "./components/profile/ProfileContainerWithRouter";
 import HeaderContainer from "./components/header/HeaderContainer";
+import {Login} from "./components/login/Login";
 
 
 type AppPropsType = {}
@@ -27,6 +28,7 @@ function App(props: AppPropsType) {
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
                 </Routes>
             </div>
         </div>
