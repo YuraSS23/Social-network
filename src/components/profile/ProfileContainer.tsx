@@ -9,6 +9,7 @@ import {
     ProfileType
 } from "../../redux/profileReducer";
 import {Navigate} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type MapStatePropsType = {
     profile: ProfileType | null
@@ -47,8 +48,8 @@ const mapStateToProps = (state: RootStateType) => {
 }
 
 
-export default connect(mapStateToProps, {
+export default withAuthRedirect(connect(mapStateToProps, {
     addPost,
     changeNewPostText,
     getUserTC
-})(ProfileContainer);
+})(ProfileContainer))
