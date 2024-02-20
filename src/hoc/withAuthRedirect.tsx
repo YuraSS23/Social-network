@@ -11,10 +11,10 @@ let mapStateToProps = (state: RootStateType): mapStateToPropsType => ({
     isAuth: state.auth.isAuth
 })
 
-export const withAuthRedirect = (Component: any) => {
-    const RedirectComponent = (props: any) => {
-        if (!props.isAuth) return <Navigate to={'/login'} replace={true}/>
-        return <Component {...props}/>
+export const withAuthRedirect = <T extends object>(Component: React.ComponentType<T>): React.FC<T> => {
+    const RedirectComponent = ({isAuth, ...restProps}: mapStateToPropsType) => {
+        if (!isAuth) return <Navigate to={'/login'} replace={true}/>
+        return <Component {...restProps as T}/>
     }
     return connect(mapStateToProps)(RedirectComponent)
-};
+}
