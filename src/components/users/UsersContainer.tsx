@@ -4,6 +4,7 @@ import {followTC, getUsersTC, UsersPageType} from "../../redux/usersReducer";
 import React from "react";
 import {Users} from "./Users";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type mapStateToPropsType = {
     usersPage: UsersPageType
@@ -54,7 +55,10 @@ let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
     }
 }
 
-export default withAuthRedirect(connect(mapStateToProps, {
-    followTC,
-    getUsersTC
-})(UsersContainer))
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        followTC,
+        getUsersTC
+    }),
+    withAuthRedirect
+)(UsersContainer)
