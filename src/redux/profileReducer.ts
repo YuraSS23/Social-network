@@ -1,11 +1,12 @@
 import {v1} from "uuid";
-import {ActionType, AppThunk} from "./redux-store";
+import {ActionType, AppThunk, RootStateType} from "./redux-store";
 import {ThunkDispatch} from "redux-thunk";
 import {api} from "../api/api";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_PROFILE = "SET-PROFILE"
+const SET_USERS_STATUS = 'SET-USERS-STATUS'
 
 export type PostType = {
     id: string
@@ -15,6 +16,7 @@ export type PostType = {
 
 export type ProfilePageType = {
     posts: PostType[]
+    status: string
     newPostText: string
     profile: ProfileType | null
 }
@@ -50,7 +52,8 @@ const initialState: ProfilePageType = {
         {id: v1(), likeCounts: 20, message: 'It\'s my first post'}
     ],
     newPostText: "",
-    profile: null
+    profile: null,
+    status: ''
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
@@ -69,6 +72,9 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case SET_PROFILE: {
             return {...state, profile: action.profile}
         }
+        case SET_USERS_STATUS: {
+            return {...state, status: action.status}
+        }
         default : {
             return state
         }
@@ -78,12 +84,15 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
 export type UpdateNewPostActionType = ReturnType<typeof changeNewPostTextActionCreator>
 export type setUserProfileActionType = ReturnType<typeof setUserProfileActionCreator>
+export type SetUsersStatusActionType = ReturnType<typeof setUsersStatusActionCreator>
 
 export const addPostActionCreator = () => ({type: ADD_POST}) as const
 export const changeNewPostTextActionCreator = (text: string) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text}) as const
 export const setUserProfileActionCreator = (profile: ProfileType) =>
     ({type: SET_PROFILE, profile}) as const
+export const setUsersStatusActionCreator = (status: string) =>
+    ({type: SET_USERS_STATUS, status}) as const
 
 export const getUserTC = (userID: string): AppThunk => (dispatch: ThunkDispatch<ProfilePageType, unknown, ActionType>) => {
     api.getUser(userID)
@@ -91,3 +100,20 @@ export const getUserTC = (userID: string): AppThunk => (dispatch: ThunkDispatch<
             dispatch(setUserProfileActionCreator(data))
         )
 }
+export const getUsersStatusTC =(userId: string): AppThunk =>
+    (dispatch: ThunkDispatch<RootStateType, unknown, ActionType>, getState: () => RootStateType)=> {
+        api.getStatus(userId)
+            .then(data => {
+                dispatch(setUsersStatusActionCreator(data))
+            })
+    }
+
+export const updateUsersStatusTC =(status: string): AppThunk =>
+    (dispatch: ThunkDispatch<RootStateType, unknown, ActionType>, getState: () => RootStateType)=> {
+        api.updateStatus(status)
+            .then(data => {
+                if (data.data.resultCode === 0) {
+                    dispatch(setUsersStatusActionCreator(status))
+                }
+            })
+    }

@@ -1,10 +1,12 @@
 import axios from "axios";
 import {userType} from "../redux/usersReducer";
+import {DataType} from "../redux/authReducer";
+import {ProfileType} from "../redux/profileReducer";
 
-type followResponseType = {
+type ResponseType<T = {}> = {
     resultCode: number
     messages: string[]
-    data: {}
+    data: T
 }
 
 type getUsersResponseType = {
@@ -29,18 +31,27 @@ export const api =  {
             })
     },
     follow(id: string){
-        return instance.post<followResponseType>(`follow/${id}`, {})
+        return instance.post<ResponseType>(`follow/${id}`, {})
     },
     unFollow(id: string){
-        return instance.delete<followResponseType>(`follow/${id}`)
+        return instance.delete<ResponseType>(`follow/${id}`)
     },
     authMe(){
-        return instance.get("auth/me")
+        return instance.get<ResponseType<DataType>>("auth/me")
     },
     getUser(userID: string){
-        return instance.get(`profile/${userID}`)
+        return instance.get<ProfileType>(`profile/${userID}`)
             .then(response => {
                 return response.data
             })
+    },
+    getStatus(userId: string) {
+        return instance.get<string>(`/profile/status/${userId}`)
+            .then(response => {
+                return response.data
+            })
+    },
+    updateStatus(status: string) {
+        return instance.put<ResponseType>(`/profile/status`, {status})
     }
 };
