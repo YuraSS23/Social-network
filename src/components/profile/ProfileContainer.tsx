@@ -13,6 +13,7 @@ type MapStatePropsType = {
     profile: ProfileType | null
     userID: string | undefined
     status: string
+    authId: string | null
 }
 
 type MapDispatchPropsType = {
@@ -43,7 +44,8 @@ class ProfileContainer extends React.Component<ProfileContainerAPIPropsType> {
 const mapStateToProps = (state: RootStateType) => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        authId: state.auth.data.id
     }
 }
 

@@ -17,7 +17,9 @@ export const Profile = (props: ProfilePropsType) => {
         <div className={s.content}>
             <ProfileInfo profile={props.profile}
                          status={props.status}
-                         updateStatus={props.updateUsersStatusTC}/>
+                         updateStatus={props.updateUsersStatusTC}
+                         authId={props.authId}
+            />
             <MyPostsContainer/>
         </div>
     );
