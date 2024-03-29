@@ -39,7 +39,7 @@ class ProfileContainer extends React.Component<ProfileContainerAPIPropsType> {
     render() {
         return <Profile {...this.props} />
     }
-}
+};
 
 const mapStateToProps = (state: RootStateType) => {
     return {

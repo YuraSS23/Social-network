@@ -27,7 +27,6 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     onStatusChange =(e: ChangeEvent<HTMLInputElement>)=> {
         this.setState({status: e.currentTarget.value})
     }
-
     componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>, snapshot?: any) {
         if (prevProps.status !== this.props.status) {
             this.setState({status: this.props.status})
@@ -37,12 +36,12 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     render() {
         return <div>
             {!this.state.isStatusChanges && <span onDoubleClick={this.addStatusChanges.bind(this)}>
-                                            {this.props.status  || "-------"}
+                                            {this.props.status || "-------"}
                                             </span>}
             {this.state.isStatusChanges && <input onBlur={this.removeStatusChanges.bind(this)}
-                                                  autoFocus={true}
                                                   onChange={this.onStatusChange}
-                                                  value={this.props.status}
+                                                  autoFocus={true}
+                                                  value={this.state.status}
                                                   type={"text"}/>}
         </div>
     }

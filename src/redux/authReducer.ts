@@ -45,9 +45,9 @@ export const setAuthUserData = (data: DataType) => ({type: SET_USER_DATA, data})
 
 export const authTC = (): AppThunk => (dispatch: ThunkDispatch<AuthPropsType, unknown, ActionType>) => {
     api.authMe()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(response.data.data))
+        .then((data)=> {
+            if (data.resultCode === 0) {
+                dispatch(setAuthUserData(data.data))
             }
         })
 }

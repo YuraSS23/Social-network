@@ -23,23 +23,26 @@ const instance = axios.create({
     }
 })
 
-export const api =  {
-    getUsers(page: number){
+export const api = {
+    getUsers(page: number) {
         return instance.get<getUsersResponseType>(`users?page=${page}&count=4`)
             .then(response => {
                 return response.data
             })
     },
-    follow(id: string){
+    follow(id: string) {
         return instance.post<ResponseType>(`follow/${id}`, {})
     },
-    unFollow(id: string){
+    unFollow(id: string) {
         return instance.delete<ResponseType>(`follow/${id}`)
     },
-    authMe(){
+    authMe() {
         return instance.get<ResponseType<DataType>>("auth/me")
+            .then(response => {
+                return response.data
+            })
     },
-    getUser(userID: string){
+    getUser(userID: string) {
         return instance.get<ProfileType>(`profile/${userID}`)
             .then(response => {
                 return response.data

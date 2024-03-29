@@ -3,7 +3,7 @@ import {AddMessageActionType, dialogsReduser, UpdateNewMessageActionType} from "
 import {
     AddPostActionType,
     profileReducer,
-    setUserProfileActionType, SetUsersStatusActionType,
+    setUserProfileActionType, setUsersStatusActionType,
     UpdateNewPostActionType
 } from "./profileReducer";
 import {sidebarReduser} from "./sidebarReduser";
@@ -19,7 +19,7 @@ import thunk, {ThunkAction} from "redux-thunk";
 
 export type ActionType = AddPostActionType | UpdateNewPostActionType | AddMessageActionType
     | UpdateNewMessageActionType | followACType | unFollowACType | setUsersACType | setCurrentPageACType |
-    setIsFetchingACType | setUserProfileActionType | authReducerActionType | setLoadingACType | SetUsersStatusActionType
+    setIsFetchingACType | setUserProfileActionType | authReducerActionType | setLoadingACType | setUsersStatusActionType
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
