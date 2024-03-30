@@ -9,7 +9,7 @@ import {
 import {sidebarReduser} from "./sidebarReduser";
 import {
     followACType,
-    setCurrentPageACType, setIsFetchingACType, setLoadingACType,
+    setCurrentPageACType, setFilterActionType, setIsFetchingACType, setLoadingACType,
     setUsersACType,
     unFollowACType,
     usersReducer
@@ -19,7 +19,8 @@ import thunk, {ThunkAction} from "redux-thunk";
 
 export type ActionType = AddPostActionType | UpdateNewPostActionType | AddMessageActionType
     | UpdateNewMessageActionType | followACType | unFollowACType | setUsersACType | setCurrentPageACType |
-    setIsFetchingACType | setUserProfileActionType | authReducerActionType | setLoadingACType | setUsersStatusActionType
+    setIsFetchingACType | setUserProfileActionType | authReducerActionType | setLoadingACType
+    | setUsersStatusActionType | setFilterActionType
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,

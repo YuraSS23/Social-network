@@ -1,13 +1,12 @@
-.formWrap {
-    padding: 0 30%;
-}
-
-.form  {
+.loginPage {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    padding-bottom: 100px;
 }
 
-.formlabel {
-    font-size: 20px;
-    font-weight: bold;
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

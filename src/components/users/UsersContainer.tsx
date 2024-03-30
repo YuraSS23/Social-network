@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {followTC, getUsersTC, UsersPageType} from "../../redux/usersReducer";
+import {FilterType, followTC, getUsersTC, UsersPageType} from "../../redux/usersReducer";
 import React from "react";
 import {Users} from "./Users";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -12,24 +12,32 @@ type mapStateToPropsType = {
 
 type mapDispatchToPropsType = {
     followTC: (userID: string, follow: boolean) => void
-    getUsersTC: (page: number) => void
+    getUsersTC: (currentPage: number, pageSize: number, filter: FilterType) => void
 }
 
 type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 export class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
-        this.props.getUsersTC(1)
+        this.props.getUsersTC(this.props.usersPage.currentPage,
+            this.props.usersPage.pageSize,
+            this.props.usersPage.filter)
     }
 
     onPageNumberClick = (clickedTextContent: string | null) => {
+        let currentPage = 1
         if (clickedTextContent === "В начало") {
-            this.props.getUsersTC(1)
+            currentPage = 1
         } else if (clickedTextContent === "дальше") {
-            this.props.getUsersTC(this.props.usersPage.currentPage + 1)
+            currentPage = this.props.usersPage.currentPage + 1
         } else {
-            this.props.getUsersTC(Number(clickedTextContent))
+            currentPage = Number(clickedTextContent)
         }
+        this.props.getUsersTC(currentPage, this.props.usersPage.pageSize, this.props.usersPage.filter)
+    }
+
+    onFilterChanged = (filter: FilterType)=> {
+        this.props.getUsersTC(1, this.props.usersPage.pageSize, filter)
     }
 
     unFollow = (userID: string) => {
@@ -45,6 +53,7 @@ export class UsersContainer extends React.Component<UsersPropsType> {
                       usersPage={this.props.usersPage}
                       follow={this.follow}
                       unFollow={this.unFollow}
+                      onFilterChanged={this.onFilterChanged}
         />
     }
 }

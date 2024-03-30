@@ -1,20 +1,23 @@
 import React from 'react';
 import s from "./Users.module.css"
 import img from '../../assets/images/image.png'
-import {UsersPageType} from "../../redux/usersReducer";
+import {FilterType, UsersPageType} from "../../redux/usersReducer";
 import {Preloader} from "../common/Preloader";
 import {NavLink} from "react-router-dom";
+import {UsersSearchForm} from "./UsersSearchForm";
 
 type UsersPropsType = {
     usersPage: UsersPageType
     follow: (userId: string) => void
     unFollow: (userId: string) => void
     onPageNumberClick: (clickedTextContent: string | null) => void
+    onFilterChanged: (filter: FilterType) => void
 }
 
 export const Users = (props: UsersPropsType) => {
     return <div>
         <div className={s.pageName}>Users</div>
+        <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
         <div className={s.usersMap}>
             {props.usersPage.isFetching ? <Preloader/>
                 : props.usersPage.users.map(el => {
