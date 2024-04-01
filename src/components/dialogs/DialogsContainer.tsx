@@ -1,11 +1,7 @@
-import {
-    addMessageActionCreator,
-    changeNewMessageTextActionCreator,
-    MessagesPageType
-} from "../../redux/dialogsReducer";
+import {addMessageActionCreator, MessagesPageType} from "../../redux/dialogsReducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
-import {ActionType, RootStateType} from "../../redux/redux-store";
+import {RootStateType} from "../../redux/redux-store";
 import {compose, Dispatch} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
@@ -14,8 +10,7 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-    addMessage: ()=>void,
-    onMessageChange: (text: string)=>void
+    addMessage: (message: string)=>void
 }
 
 export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -28,12 +23,8 @@ let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
 
 let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType=>{
     return {
-        addMessage: ()=>{
-            dispatch(addMessageActionCreator())
-        },
-        onMessageChange: (text: string)=>{
-            const action: ActionType = changeNewMessageTextActionCreator(text)
-            dispatch(action)
+        addMessage: (message: string)=>{
+            dispatch(addMessageActionCreator(message))
         }
     }
 }

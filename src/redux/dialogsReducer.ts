@@ -2,7 +2,6 @@ import {v1} from "uuid";
 import {ActionType} from "./redux-store";
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
 type MessagesType = {
     id: string
@@ -17,16 +16,13 @@ export type DialogsType = {
 export type MessagesPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
-    newMessageText: string
 }
 
 export type AddMessageActionType = {
     type: "ADD-MESSAGE"
-}
-
-export type UpdateNewMessageActionType = {
-    type: "UPDATE-NEW-MESSAGE-TEXT"
-    newText: string
+    payload: {
+        message: string
+    }
 }
 
 const initialState: MessagesPageType = {
@@ -45,8 +41,7 @@ const initialState: MessagesPageType = {
         {id: v1(), message: 'Bye'},
         {id: v1(), message: 'Hi'},
         {id: v1(), message: 'Hi'},
-    ],
-    newMessageText: "",
+    ]
 }
 
 export const dialogsReduser = (state: MessagesPageType = initialState, action: ActionType): MessagesPageType => {
@@ -54,12 +49,9 @@ export const dialogsReduser = (state: MessagesPageType = initialState, action: A
         case ADD_MESSAGE : {
             let newMessage: MessagesType = {
                 id: v1(),
-                message: state.newMessageText
+                message: action.payload.message
             }
-            return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
-        }
-        case UPDATE_NEW_MESSAGE_TEXT: {
-            return {...state, newMessageText: action.newText}
+            return {...state, messages: [...state.messages, newMessage]}
         }
         default: {
             return state
@@ -67,8 +59,5 @@ export const dialogsReduser = (state: MessagesPageType = initialState, action: A
     }
 }
 
-export const addMessageActionCreator = (): AddMessageActionType => ({type: ADD_MESSAGE}) as const
-export const changeNewMessageTextActionCreator = (text: string): UpdateNewMessageActionType => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newText: text
-}) as const
+export const addMessageActionCreator = (message: string): AddMessageActionType =>
+    ({type: ADD_MESSAGE, payload: {message}}) as const

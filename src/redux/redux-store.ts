@@ -1,10 +1,9 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {AddMessageActionType, dialogsReduser, UpdateNewMessageActionType} from "./dialogsReducer";
+import {AddMessageActionType, dialogsReduser} from "./dialogsReducer";
 import {
     AddPostActionType,
     profileReducer,
-    setUserProfileActionType, setUsersStatusActionType,
-    UpdateNewPostActionType
+    setUserProfileActionType, setUsersStatusActionType, UpdateNewPostActionType,
 } from "./profileReducer";
 import {sidebarReduser} from "./sidebarReduser";
 import {
@@ -17,10 +16,10 @@ import {
 import {authReducer, authReducerActionType} from "./authReducer";
 import thunk, {ThunkAction} from "redux-thunk";
 
-export type ActionType = AddPostActionType | UpdateNewPostActionType | AddMessageActionType
-    | UpdateNewMessageActionType | followACType | unFollowACType | setUsersACType | setCurrentPageACType |
+export type ActionType = AddPostActionType | AddMessageActionType
+    | followACType | unFollowACType | setUsersACType | setCurrentPageACType |
     setIsFetchingACType | setUserProfileActionType | authReducerActionType | setLoadingACType
-    | setUsersStatusActionType | setFilterActionType
+    | setUsersStatusActionType | setFilterActionType | UpdateNewPostActionType
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
