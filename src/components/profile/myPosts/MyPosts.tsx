@@ -1,32 +1,61 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './MyPosts.module.css'
 import {Post} from './post/Post';
 import {MyPostsPropsType} from "./MyPostsContainer";
+import {Field, Formik} from "formik";
+
+type PostFormType = {
+    postText: string
+}
+
+const postFormValidate = (values: any) => {
+    const errors = {};
+    return errors;
+}
+
 
 export const MyPosts = (props: MyPostsPropsType) => {
 
     const postsElements = props.posts.map(p => <Post key={p.id} message={p.message} likeCounts={p.likeCounts}/>)
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>()
-
-    const onAddPost = () => {
-        props.addPost()
-    }
-
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-            props.updateNewPostText(e.currentTarget.value)
+    const submit =(values: PostFormType, {setSubmitting}: {setSubmitting: (isSubmitting: boolean) => void}) => {
+        const post: PostFormType = {
+            postText: values.postText
+        }
+        props.addPost(post.postText)
+        setSubmitting(false)
     }
 
     return (
         <div className={s.postsBlock}>
             <h3>My Posts</h3>
-            <div>
-                <div><textarea placeholder={"Add new post..."} onChange={onPostChange} ref={newPostElement}
-                               value={props.newPostText}/></div>
-                <div>
-                    <button onClick={onAddPost}>Add post</button>
-                </div>
-            </div>
+            <Formik
+                initialValues={{postText: ''}}
+                validate={postFormValidate}
+                onSubmit={submit}
+            >
+                {({
+                      values,
+                      handleChange,
+                      handleBlur,
+                      handleSubmit,
+                      isSubmitting,
+                  }) => (
+                    <form onSubmit={handleSubmit}>
+                        <Field
+                            type="text"
+                            name="postText"
+                            placeholder={"Type new post ..."}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.postText}
+                        />
+                        <button type="submit" disabled={isSubmitting}>
+                            Add post
+                        </button>
+                    </form>
+                )}
+            </Formik>
             <div>
                 {postsElements}
             </div>

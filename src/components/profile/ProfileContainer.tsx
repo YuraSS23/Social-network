@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {
     addPostActionCreator as addPost,
-    changeNewPostTextActionCreator as changeNewPostText, getUsersStatusTC,
+    getUsersStatusTC,
     getUserTC,
     ProfileType, updateUsersStatusTC
 } from "../../redux/profileReducer";
@@ -17,8 +17,7 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    addPost: () => void
-    changeNewPostText: (text: string) => void
+    addPost: (postText: string) => void
     getUserTC: (userID: string) => void
     getUsersStatusTC: (userId: string)=> void
     updateUsersStatusTC: (status: string)=> void
@@ -51,7 +50,6 @@ const mapStateToProps = (state: RootStateType) => {
 
 export default connect(mapStateToProps, {
     addPost,
-    changeNewPostText,
     getUserTC,
     getUsersStatusTC,
     updateUsersStatusTC
