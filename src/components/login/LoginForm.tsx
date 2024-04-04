@@ -8,25 +8,37 @@ type AuthFormType = {
     rememberMe: boolean
 }
 
-const usersLoginFormValidate = (values: any) => {
-    const errors = {};
-    return errors;
+const emailValidate = (email: string) => {
+    let error
+    if (!email) {
+        error = 'Email Required'
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+        error = 'Invalid email address';
+    }
+    return error
+}
+
+const passwordValidate = (password: string) => {
+    let error
+    if (!password) {
+        error = 'Password required'
+    }
+    return error
 }
 
 export const LoginForm = () => {
-    const submit =(values: AuthFormType, {setSubmitting}: {setSubmitting: (isSubmitting: boolean) => void}) => {
-        const filter: AuthFormType = {
+    const submit = (values: AuthFormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+        const login: AuthFormType = {
             email: values.email,
             password: values.password,
             rememberMe: values.rememberMe
         }
-        console.log(filter)
+        console.log(login)
         setSubmitting(false)
     }
     return (
         <Formik
             initialValues={{email: '', password: '', rememberMe: false}}
-            validate={usersLoginFormValidate}
             onSubmit={submit}
         >
             {({
@@ -35,6 +47,8 @@ export const LoginForm = () => {
                   handleBlur,
                   handleSubmit,
                   isSubmitting,
+                  errors,
+                  touched
               }) => (
                 <form onSubmit={handleSubmit} className={s.loginForm}>
                     <Field
@@ -44,7 +58,9 @@ export const LoginForm = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.email}
+                        validate={emailValidate}
                     />
+                    {errors.email && touched.email && <div>{errors.email}</div>}
                     <Field
                         type="password"
                         name="password"
@@ -52,7 +68,9 @@ export const LoginForm = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.password}
+                        validate={passwordValidate}
                     />
+                    {errors.password && touched.password && <div>{errors.password}</div>}
                     <label>
                         <Field
                             type="checkbox"

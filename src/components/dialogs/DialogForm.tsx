@@ -6,9 +6,14 @@ type DialogFormType = {
     newMessage: string
 }
 
-const dialogFormValidate = (values: any) => {
-    const errors = {};
-    return errors;
+const dialogValidate = (newMessage: string) => {
+    let error
+    if (!newMessage) {
+        error = 'Message is required'
+    } else if (newMessage.length > 100) {
+        error = 'Max length 100 symbols'
+    }
+    return error
 }
 
 type DialogFormPropsType = {
@@ -16,7 +21,7 @@ type DialogFormPropsType = {
 }
 
 export const DialogForm = (props: DialogFormPropsType) => {
-    const submit =(values: DialogFormType, {setSubmitting}: {setSubmitting: (isSubmitting: boolean) => void}) => {
+    const submit = (values: DialogFormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
         const message: DialogFormType = {
             newMessage: values.newMessage,
         }
@@ -26,7 +31,6 @@ export const DialogForm = (props: DialogFormPropsType) => {
     return (
         <Formik
             initialValues={{newMessage: ''}}
-            validate={dialogFormValidate}
             onSubmit={submit}
         >
             {({
@@ -35,6 +39,7 @@ export const DialogForm = (props: DialogFormPropsType) => {
                   handleBlur,
                   handleSubmit,
                   isSubmitting,
+                  errors
               }) => (
                 <form onSubmit={handleSubmit} className={s.loginForm}>
                     <Field
@@ -45,12 +50,14 @@ export const DialogForm = (props: DialogFormPropsType) => {
                         onBlur={handleBlur}
                         value={values.newMessage}
                         className={s.messageTextarea}
+                        validate={dialogValidate}
                     />
+                    {errors.newMessage==="Max length 100 symbols" && <div className={s.error}>{errors.newMessage}</div>}
                     <button type="submit" disabled={isSubmitting} className={s.messageButton}>
                         Send message
                     </button>
                 </form>
             )}
         </Formik>
-    );
-};
+    )
+}

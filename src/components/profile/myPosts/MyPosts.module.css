@@ -1,3 +1,30 @@
 .postsBlock {
+    padding: 30px;
+}
+.error {
+    color: red;
+    padding: 5px;
+}
+.form {
+    padding-bottom: 20px;
+}
+.field {
+    display: block;
+    width: 500px;
+    height: 100px;
+    border-radius: 20px;
     padding: 10px;
+}
+
+.fieldError {
+    border: 3px solid red;
+}
+
+.formBtn {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 10px;
+    color: #515ff1;
+    background-color: #a7a8fc;
 }
