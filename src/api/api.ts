@@ -2,6 +2,7 @@ import axios from "axios";
 import {FilterType, userType} from "../redux/usersReducer";
 import {DataType} from "../redux/authReducer";
 import {ProfileType} from "../redux/profileReducer";
+import {AuthFormType} from "../components/login/LoginForm";
 
 type ResponseType<T = {}> = {
     resultCode: number
@@ -57,5 +58,17 @@ export const api = {
     },
     updateStatus(status: string) {
         return instance.put<ResponseType>(`/profile/status`, {status})
+    },
+    login(loginData: AuthFormType) {
+        return instance.post<ResponseType<DataType>>(`auth/login`, loginData)
+            .then(response => {
+                return response.data
+            })
+    },
+    logout() {
+        return instance.delete<ResponseType>(`auth/login`)
+            .then(response => {
+                return response.data
+            })
     }
-};
+}

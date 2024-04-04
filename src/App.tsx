@@ -9,7 +9,7 @@ import {Navbar} from "./components/navbar/Navbar";
 import UsersContainer from "./components/users/UsersContainer";
 import {ProfileContainerWithRouter} from "./components/profile/ProfileContainerWithRouter";
 import HeaderContainer from "./components/header/HeaderContainer";
-import {Login} from "./components/login/Login";
+import Login from "./components/login/Login";
 import {Error404} from "./components/error404/Error404";
 
 
