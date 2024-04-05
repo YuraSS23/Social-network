@@ -4,6 +4,7 @@ import {api} from "../api/api";
 import {AuthFormType} from "../components/login/LoginForm";
 
 const SET_USER_DATA = 'SET-USER-DATA'
+const SET_ERROR = 'SET-ERROR'
 
 export type DataType = {
     id: string | null
@@ -14,6 +15,7 @@ export type DataType = {
 type AuthPropsType = {
     data: DataType
     isAuth: boolean
+    authError: string
 }
 
 const initialState: AuthPropsType = {
@@ -22,7 +24,8 @@ const initialState: AuthPropsType = {
         login: null,
         email: null,
     },
-    isAuth: false
+    isAuth: false,
+    authError: ''
 }
 
 export const authReducer = (state: AuthPropsType = initialState, action: ActionType): AuthPropsType => {
@@ -36,6 +39,12 @@ export const authReducer = (state: AuthPropsType = initialState, action: ActionT
                 },
                 isAuth: action.payload.isAuth}
         }
+        case SET_ERROR : {
+            return {
+                ...state,
+                authError: action.payload.error
+            }
+        }
         default : {
             return state
         }
@@ -43,9 +52,13 @@ export const authReducer = (state: AuthPropsType = initialState, action: ActionT
 }
 
 export type authReducerActionType = ReturnType<typeof setUserDataActionCreator>
+    | ReturnType<typeof setErrorActionCreator>
+
 
 export const setUserDataActionCreator = (data: DataType, isAuth: boolean) =>
     ({type: SET_USER_DATA, payload: {...data, isAuth}}) as const
+export const setErrorActionCreator = (error: string) =>
+    ({type: SET_ERROR, payload: {error}}) as const
 
 export const authTC = (): AppThunk => (dispatch: ThunkDispatch<AuthPropsType, unknown, ActionType>) => {
     api.authMe()
@@ -62,6 +75,11 @@ export const loginTC = (loginData: AuthFormType): AppThunk =>
             .then((data)=> {
                 if (data.resultCode === 0) {
                     dispatch(authTC())
+                } else {
+                    dispatch(setErrorActionCreator(data.messages[0]))
+                    setInterval(()=>{
+                        dispatch(setErrorActionCreator(''))
+                    },5000)
                 }
             })
     }

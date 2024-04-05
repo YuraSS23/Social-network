@@ -8,6 +8,7 @@ import {Navigate} from "react-router-dom";
 
 type MapStatePropsType = {
     isAuth: boolean
+    authError: string
 }
 type MapDispatchPropsType = {
     login: (loginData: AuthFormType) => void
@@ -25,6 +26,7 @@ const Login = (props: LoginPropsType) => {
     return (
         <div className={s.loginPage}>
             <h1>Login</h1>
+            {props.authError && <div className={s.error}>{props.authError}</div>}
             <LoginForm loginFormSubmit={loginFormSubmit} />
         </div>
     )
@@ -32,7 +34,8 @@ const Login = (props: LoginPropsType) => {
 
 const MapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        authError: state.auth.authError
     }
 }
 
