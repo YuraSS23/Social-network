@@ -11,14 +11,15 @@ import {ProfileContainerWithRouter} from "./components/profile/ProfileContainerW
 import HeaderContainer from "./components/header/HeaderContainer";
 import Login from "./components/login/Login";
 import {Error404} from "./components/error404/Error404";
-import {useSelector} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {RootStateType} from "./redux/redux-store";
 
-
-type AppPropsType = {}
+type MapStatePropsType = {
+    userID: string | null
+}
+type AppPropsType = MapStatePropsType
 
 function App(props: AppPropsType) {
-    let userID = useSelector<RootStateType>(state => state.auth.data.id)
     return (
         <div className={'app-wrapper'}>
             <HeaderContainer />
@@ -26,7 +27,7 @@ function App(props: AppPropsType) {
             <div className={'app-wrapper-content'}>
                 <Routes>
                     <Route path={'/'} element={<ProfileContainerWithRouter/>}/>
-                    <Route path={`/profile`} element={<Navigate to={`/profile/${userID}`} />} />
+                    <Route path={`/profile`} element={<Navigate to={`/profile/${props.userID}`} />} />
                     <Route path={`/profile/:userID?`} element={<ProfileContainerWithRouter/>}/>
                     <Route path={'/dialogs/*'} element={<DialogsContainer/>}/>
                     <Route path={'/users'} element={<UsersContainer/>}/>
@@ -42,4 +43,10 @@ function App(props: AppPropsType) {
     );
 }
 
-export default App;
+const MapStateToProps = (state: RootStateType): MapStatePropsType => {
+    return {
+        userID: state.auth.data.id
+    }
+}
+
+export default connect(MapStateToProps, {})(App)

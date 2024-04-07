@@ -11,7 +11,7 @@ import {
 
 type MapStatePropsType = {
     profile: ProfileType | null
-    userID: string | undefined
+    userID: string
     status: string
     authId: string | null
 }
@@ -28,9 +28,6 @@ type ProfileContainerAPIPropsType = MapStatePropsType & MapDispatchPropsType
 class ProfileContainer extends React.Component<ProfileContainerAPIPropsType> {
     componentDidMount() {
         let userID = this.props.userID
-        if (!userID) {
-            userID = "30582"
-        }
         this.props.getUserTC(userID)
         this.props.getUsersStatusTC(userID)
     }

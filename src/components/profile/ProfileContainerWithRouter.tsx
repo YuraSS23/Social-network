@@ -5,5 +5,5 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export const ProfileContainerWithRouter = withAuthRedirect(() => {
     const params = useParams()
-    return <ProfileContainer userID={params.userID}/>
+    return <ProfileContainer userID={params.userID ? params.userID : ''}/>
 })
