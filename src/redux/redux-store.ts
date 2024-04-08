@@ -15,18 +15,20 @@ import {
 } from "./usersReducer";
 import {authReducer, authReducerActionType} from "./authReducer";
 import thunk, {ThunkAction} from "redux-thunk";
+import {appReducer, SetInitializedActionType} from "./appReducer";
 
 export type ActionType = AddPostActionType | AddMessageActionType
     | followACType | unFollowACType | setUsersACType | setCurrentPageACType |
     setIsFetchingACType | setUserProfileActionType | authReducerActionType | setLoadingACType
-    | setUsersStatusActionType | setFilterActionType
+    | setUsersStatusActionType | setFilterActionType | SetInitializedActionType
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReduser,
     sidebar: sidebarReduser,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    app: appReducer,
 })
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootStateType, unknown, ActionType>
