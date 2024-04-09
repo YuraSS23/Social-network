@@ -5,6 +5,7 @@ import React from "react";
 import {Users} from "./Users";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {getUsersPage} from "../../redux/users-selectors";
 
 type mapStateToPropsType = {
     usersPage: UsersPageType
@@ -60,7 +61,7 @@ export class UsersContainer extends React.Component<UsersPropsType> {
 
 let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
     return {
-        usersPage: state.usersPage
+        usersPage: getUsersPage(state)
     }
 }
 
