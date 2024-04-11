@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 
 type ProfileStatusPropsType = {
     status: string
@@ -11,6 +11,10 @@ export const ProfileStatusWithHooks: React.FC<ProfileStatusPropsType> = (props) 
 
     const [status, setStatus] = useState(props.status)
     const [isStatusChanges, setIsStatusChanges] = useState(false)
+
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
 
     const addStatusChanges = () => {
         if (props.profileId === props.authId) {
@@ -32,9 +36,9 @@ export const ProfileStatusWithHooks: React.FC<ProfileStatusPropsType> = (props) 
                                             {props.status || "-------"}
                                             </span>}
         {isStatusChanges && <input onBlur={removeStatusChanges}
-                                              onChange={onStatusChange}
-                                              autoFocus={true}
-                                              value={status}
-                                              type={"text"}/>}
+                                   onChange={onStatusChange}
+                                   autoFocus={true}
+                                   value={status}
+                                   type={"text"}/>}
     </div>
 }
